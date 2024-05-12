@@ -6,9 +6,7 @@ import {
   Check,
   Gavel,
   Loader2,
-  MoreVertical,
   Shield,
-  ShieldAlert,
   ShieldCheck,
   ShieldQuestion,
   Ellipsis,
@@ -93,25 +91,25 @@ export const MembersModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white dark:text-black overflow-hidden">
+      <DialogContent className="bg-[#313338] text-white p-5 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Manage Members
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          <DialogDescription className="text-center text-zinc-300">
             {server?.members?.length} Members
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="mt-8 max-h-[420px] pr-6">
           {server?.members?.map((member) => (
             <div key={member.id} className="flex items-center gap-x-2 mb-6">
-              <UserAvatar src={member.profile.imageUrl} />
+              <UserAvatar className="" src={member.profile.imageUrl} />
               <div className="flex flex-col gap-y-1">
-                <div className="text-xs font-semibold flex items-center gap-x-1">
+                <div className=" text-md font-semibold flex items-center gap-x-1">
                   {member.profile.name}
                   {roleIconMap[member.role]}
                 </div>
-                <p className="text-xs text-zinc-500">{member.profile.email}</p>
+                <p className="text-md text-zinc-400">{member.profile.email}</p>
               </div>
 
               {server.profileId !== member.profileId &&
@@ -120,16 +118,16 @@ export const MembersModal = () => {
                     <div className="ml-auto text-black">
                       <DropdownMenu>
                         <DropdownMenuTrigger>
-                          <Ellipsis className=" h-5 w-5 text-zinc-500" />
+                          <Ellipsis className=" h-5 w-5 text-zinc-300" />
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className=" text-black" side="left">
+                        <DropdownMenuContent className=" text-zinc-300 bg-[#1e1f22] border-none rounded-[10px]" side="left">
                           <DropdownMenuSub>
                             <DropdownMenuSubTrigger className="flex items-center">
                               <ShieldQuestion className="w-4 h-4 mr-2" />
                               <span>Role</span>
                             </DropdownMenuSubTrigger>
                             <DropdownMenuPortal>
-                              <DropdownMenuSubContent className=" text-black bg-white">
+                              <DropdownMenuSubContent className="text-zinc-300 bg-[#1e1f22] border-none rounded-[10px]">
                                 <DropdownMenuItem
                                   onClick={() =>
                                     onRoleChange(member.id, "GUEST")

@@ -4,9 +4,21 @@ import { Plus } from "lucide-react";
 
 import ActionTooltip from "@/components/action-tooltip";
 import { useModal } from "@/hooks/use-modal-store";
+import { useEffect } from "react";
 
 export const NavigationAction = () => {
   const { onOpen } = useModal();
+
+    
+  useEffect(() => {
+    const handleContextmenu = (e: { preventDefault: () => void; }) => {
+        e.preventDefault()
+    }
+    document.addEventListener('contextmenu', handleContextmenu)
+    return function cleanup() {
+        document.removeEventListener('contextmenu', handleContextmenu)
+    }
+}, [])
 
   return (
     <div>
