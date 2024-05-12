@@ -13,7 +13,6 @@ import { NavigationItem } from "./navigation-item";
 export const NavigationSidebar = async () => {
   const profile = await currentProfile();
 
-  console.log(profile)
   if (!profile) {
     return redirect("/");
   }
@@ -27,7 +26,6 @@ export const NavigationSidebar = async () => {
       },
     },
   });
-  // console.log(servers);
 
   return (
     <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#E3E5E8] py-3">
