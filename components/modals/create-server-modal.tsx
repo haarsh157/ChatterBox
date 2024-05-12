@@ -1,5 +1,3 @@
-"use client";
-
 import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -67,14 +65,15 @@ export const CreateServerlModal = () => {
       console.log(error);
     }
   };
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Customize your server
+            Create your server
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          <DialogDescription className="text-center text-gray-300">
             Give your server a personality with a name and an image. You can
             always change it later.
           </DialogDescription>
@@ -105,13 +104,13 @@ export const CreateServerlModal = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                    <FormLabel className="uppercase text-xs font-bold text-gray-300">
                       Server name
                     </FormLabel>
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                        className="bg-[#1e1f22] border-0 focus-visible:ring-0 text-white focus-visible:ring-offset-0 rounded-xl"
                         placeholder="Enter server name"
                         {...field}
                       />
@@ -121,8 +120,8 @@ export const CreateServerlModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
+            <DialogFooter className="bg-[#1e1f22] px-6 py-4">
+              <Button variant="primary" className=" rounded-[10px]" disabled={isLoading}>
                 Create
               </Button>
             </DialogFooter>

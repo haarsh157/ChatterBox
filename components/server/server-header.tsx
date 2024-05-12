@@ -33,16 +33,16 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
-        <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
+        <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition rounded-sm ">
           {server.name}
           <ChevronDown className="h-5 w-5 ml-auto" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]">
+      <DropdownMenuContent className="w-56 text-xs font-medium bg-[#25282a] text-black dark:text-neutral-400 space-y-[2px] rounded-xl border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
         {isModerator && (
           <DropdownMenuItem
             onClick={() => onOpen("invite", { server })}
-            className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer"
+            className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer dark:hover:bg-[#454548]  rounded-xl"
           >
             Invite People
             <UserPlus className="h-4 w-4 ml-auto" />
@@ -51,7 +51,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {isAdmin && (
           <DropdownMenuItem
             onClick={() => onOpen("serverSettings", { server })}
-            className="px-3 py-2 text-sm cursor-pointer"
+            className="px-3 py-2 text-sm cursor-pointer  dark:hover:bg-[#454548] dark:hover:text-gray-200  rounded-xl"
           >
             Server Settings
             <Settings className="h-4 w-4 ml-auto" />
@@ -60,14 +60,17 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {isAdmin && (
           <DropdownMenuItem
             onClick={() => onOpen("members", { server })}
-            className="px-3 py-2 text-sm cursor-pointer"
+            className="px-3 py-2 text-sm cursor-pointer  dark:hover:bg-[#454548] dark:hover:text-gray-200  rounded-xl"
           >
             Manage Members
             <UserIcon className="h-4 w-4 ml-auto" />
           </DropdownMenuItem>
         )}
         {isModerator && (
-          <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+          <DropdownMenuItem
+            onClick={() => onOpen("createChannel", { server })}
+            className="px-3 py-2 text-sm cursor-pointer  dark:hover:bg-[#454548] dark:hover:text-gray-200  rounded-xl"
+          >
             Create Channel
             <PlusCircle className="h-4 w-4 ml-auto" />
           </DropdownMenuItem>
@@ -76,7 +79,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {isAdmin && (
           <DropdownMenuItem
             onClick={() => onOpen("deleteServer", { server })}
-            className="px-3 py-2 text-rose-500 text-sm cursor-pointer"
+            className="px-3 py-2 text-rose-500 text-sm cursor-pointer  dark:hover:bg-rose-500 dark:hover:text-gray-200  rounded-xl"
           >
             Delete Server
             <Trash className="h-4 w-4 ml-auto" />
@@ -85,7 +88,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {!isAdmin && (
           <DropdownMenuItem
             onClick={() => onOpen("leaveServer", { server })}
-            className="px-3 py-2 text-rose-500 text-sm cursor-pointer"
+            className="px-3 py-2 text-rose-500 text-sm cursor-pointer  dark:hover:bg-rose-500 dark:hover:text-gray-200  rounded-xl"
           >
             Leave Server
             <Trash className="h-4 w-4 ml-auto" />

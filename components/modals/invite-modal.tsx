@@ -4,7 +4,6 @@ import { useModal } from "@/hooks/use-modal-store";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -54,7 +53,7 @@ export const InviteModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Invite Friends
@@ -67,7 +66,7 @@ export const InviteModal = () => {
           <div className="flex items-center mt-2 gap-x-2">
             <Input
               disabled={isLoading}
-              className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+              className="bg-[#1e1f22] border-0 focus-visible:ring-0 text-white focus-visible:ring-offset-0 rounded-xl"
               value={inviteUrl}
               onChange={(e) => e.target.value}
               aria-disabled
@@ -85,7 +84,7 @@ export const InviteModal = () => {
             disabled={isLoading}
             variant="link"
             size="sm"
-            className="text-xs text-zinc-500 mt-4"
+            className="text-xs text-zinc-200 mt-4"
           >
             Generate a new link
             <RefreshCw className="w-4 h-4 ml-2" />
