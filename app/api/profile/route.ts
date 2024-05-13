@@ -1,0 +1,26 @@
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
+import { NextResponse } from "next/server";
+
+export async function PATCH(req: Request) {
+  try {
+    const profile = await currentProfile();
+
+    if (!profile) return new NextResponse("Unauthorized", { status: 401 });
+    const { bgImage } = await req.json();
+
+    const newProfile = await db.profile.update({
+      where: {
+        id: profile.id,
+      },
+      data: {
+        bgImage,
+      },
+    });
+
+    return NextResponse.json(newProfile);
+  } catch (error) {
+    console.log(error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+}

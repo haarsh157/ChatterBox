@@ -10,9 +10,15 @@ interface NavigationItemProps {
   id: string;
   imageUrl: string;
   name: string;
+  bgImage: string | null;
 }
 
-export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
+export const NavigationItem = ({
+  id,
+  imageUrl,
+  name,
+  bgImage,
+}: NavigationItemProps) => {
   const params = useParams();
   const router = useRouter();
 
@@ -22,7 +28,12 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
 
   return (
     <ActionTooltip side="right" align="center" label={name}>
-      <button onClick={onClick} className="group relative flex items-center">
+      <button
+        onClick={onClick}
+        className={`group relative flex items-center ${
+          !bgImage && "opacity-100"
+        }`}
+      >
         <div
           className={cn(
             "absolute left-0 bg-primary rounded-r-full transition-all w-[4px] bg-black dark:bg-white",

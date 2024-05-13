@@ -13,7 +13,7 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
 
   return (
     <ActionTooltip label="Profile Settings" side="right">
-      <div className="w-full bg-[#18181a] h-[60px] flex items-center dark:hover:bg-[#454548] dark:hover:text-gray-200">
+      <div className="w-full  h-[60px] flex items-center dark:hover:bg-[#454548] dark:hover:text-gray-200">
         <div className="pl-4">
           <UserButton
             afterSignOutUrl="/"
