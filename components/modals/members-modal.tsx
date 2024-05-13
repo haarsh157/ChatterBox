@@ -120,7 +120,10 @@ export const MembersModal = () => {
                         <DropdownMenuTrigger>
                           <Ellipsis className=" h-5 w-5 text-zinc-300" />
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className=" text-zinc-300 bg-[#1e1f22] border-none rounded-[10px]" side="left">
+                        <DropdownMenuContent
+                          className=" text-zinc-300 bg-[#1e1f22] border-none rounded-[10px]"
+                          side="left"
+                        >
                           <DropdownMenuSub>
                             <DropdownMenuSubTrigger className="flex items-center">
                               <ShieldQuestion className="w-4 h-4 mr-2" />

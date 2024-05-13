@@ -6,7 +6,6 @@ import { Edit, Hash, Mic, Trash, Video, Lock } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import ActionTooltip from "../action-tooltip";
 import { ModalType, useModal } from "@/hooks/use-modal-store";
-import { useEffect } from "react";
 
 interface ServerChannelProps {
   channels: Channel;

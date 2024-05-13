@@ -133,7 +133,11 @@ export const ServerSettings = () => {
               />
             </div>
             <DialogFooter className="bg-[#1e1f22] px-6 py-4">
-              <Button className=" rounded-xl" variant="primary" disabled={isLoading}>
+              <Button
+                className=" rounded-xl"
+                variant="primary"
+                disabled={isLoading}
+              >
                 Save
               </Button>
             </DialogFooter>

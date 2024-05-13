@@ -9,16 +9,15 @@ import { useEffect } from "react";
 export const NavigationAction = () => {
   const { onOpen } = useModal();
 
-    
   useEffect(() => {
-    const handleContextmenu = (e: { preventDefault: () => void; }) => {
-        e.preventDefault()
-    }
-    document.addEventListener('contextmenu', handleContextmenu)
+    const handleContextmenu = (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+    };
+    document.addEventListener("contextmenu", handleContextmenu);
     return function cleanup() {
-        document.removeEventListener('contextmenu', handleContextmenu)
-    }
-}, [])
+      document.removeEventListener("contextmenu", handleContextmenu);
+    };
+  }, []);
 
   return (
     <div>
