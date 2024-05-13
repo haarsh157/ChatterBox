@@ -5,12 +5,13 @@ import * as z from "zod";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { UserButton } from "@clerk/nextjs";
-import { Form, FormControl, FormField, FormItem } from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -53,11 +54,14 @@ export const ProfileSettingsModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="h-full bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)] flex flex-col items-center justify-center">
+      <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Profile Settings
           </DialogTitle>
+          <DialogDescription className="text-center text-zinc-400">
+            Customize your Profile
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -68,6 +72,9 @@ export const ProfileSettingsModal = () => {
                   name="bgImage"
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Select an Image for your ChatterBox UI
+                      </FormLabel>
                       <FormControl>
                         <FileUpload
                           endpoint="bgImage"
