@@ -78,7 +78,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   )?.role;
 
   return (
-    <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
+    <div className={`flex flex-col h-full text-primary w-full  ${profile.bgImage!==null ? "dark:backdrop-brightness-90 dark:backdrop-blur":"dark:bg-[#2B2D31] bg-[#F2F3F5]"} `}>
       <ServerHeader server={server} role={role} />
       <ScrollArea className=" flex-1 px-3">
         <div className="mt-2">
@@ -211,6 +211,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
           </>
         )}
       </ScrollArea>
+      <Separator className=" bg-zinc-200 dark:bg-zinc-600" />{" "}
       <ProfileSettings profile={profile} />
     </div>
   );

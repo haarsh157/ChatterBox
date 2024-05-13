@@ -27,7 +27,13 @@ export const NavigationSidebar = async () => {
   });
 
   return (
-    <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#E3E5E8] py-3">
+    <div
+      className={`space-y-4 flex flex-col items-center h-full text-primary w-full py-3 ${
+        profile.bgImage!==null
+          ? "dark:backdrop-brightness-50 dark:backdrop-blur"
+          : "dark:bg-[#1E1F22] bg-[#E3E5E8]"
+      }   border-r-[1px] border-[#363739]`}
+    >
       <NavigationAction />
       <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
       <ScrollArea className="flex-1 w-full">
@@ -37,6 +43,7 @@ export const NavigationSidebar = async () => {
               id={server.id}
               name={server.name}
               imageUrl={server.imageUrl}
+              bgImage={profile.bgImage}
             />
           </div>
         ))}
