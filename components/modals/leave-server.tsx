@@ -11,11 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import { useModal } from "@/hooks/use-modal-store";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useOrigin } from "@/hooks/use-origin";
 import { useRouter } from "next/navigation";
 
 export const LeaveServerModal = () => {
@@ -61,7 +58,12 @@ export const LeaveServerModal = () => {
         </DialogHeader>
         <DialogFooter className="bg-[#1e1f22] px-6 py-4">
           <div className="flex items-center justify-between w-full">
-            <Button className=" dark:hover:bg-[#313338] rounded-xl" disabled={isLoading} onClick={onClose} variant="ghost">
+            <Button
+              className=" dark:hover:bg-[#313338] rounded-xl"
+              disabled={isLoading}
+              onClick={onClose}
+              variant="ghost"
+            >
               Cancel
             </Button>
             <Button

@@ -121,7 +121,11 @@ export const CreateServerlModal = () => {
               />
             </div>
             <DialogFooter className="bg-[#1e1f22] px-6 py-4">
-              <Button variant="primary" className=" rounded-[10px]" disabled={isLoading}>
+              <Button
+                variant="primary"
+                className=" rounded-[10px]"
+                disabled={isLoading}
+              >
                 Create
               </Button>
             </DialogFooter>

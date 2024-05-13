@@ -6,12 +6,12 @@ import { db } from "@/lib/db";
 import { ServerHeader } from "./server-header";
 import { ScrollArea } from "../ui/scroll-area";
 import { ServerSearch } from "./server-serarch";
-import { channel } from "diagnostics_channel";
 import { Hash, Mic, ShieldCheck, Video } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ServerSection } from "./server-section";
 import { ServerChannel } from "./server-channel";
 import { ServerMember } from "./server-member";
+import { ProfileSettings } from "./profile-settings";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -211,6 +211,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
           </>
         )}
       </ScrollArea>
+      <ProfileSettings profile={profile} />
     </div>
   );
 };
