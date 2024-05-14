@@ -17,15 +17,15 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 
   const channel = await db.channel.findUnique({
     where: {
-      id: params.channelId,
-    },
+      id: params.channelId
+    }
   });
 
   const member = await db.member.findFirst({
     where: {
       serverId: params.serverId,
-      profileId: profile.id,
-    },
+      profileId: profile.id
+    }
   });
 
   if (!channel || !member) {

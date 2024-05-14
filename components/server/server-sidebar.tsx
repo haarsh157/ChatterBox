@@ -22,13 +22,13 @@ const roleiconMap = {
   [MemberRole.MODERATOR]: (
     <ShieldCheck className=" h-4 w-4 mr-2 text-indigo-500" />
   ),
-  [MemberRole.GUEST]: null,
+  [MemberRole.GUEST]: null
 };
 
 const channelIconMap = {
   [ChannelType.TEXT]: <Hash className=" mr-2 h-4 w-4" />,
   [ChannelType.AUDIO]: <Mic className=" mr-2 h-4 w-4" />,
-  [ChannelType.VIDEO]: <Video className=" mr-2 h-4 w-4" />,
+  [ChannelType.VIDEO]: <Video className=" mr-2 h-4 w-4" />
 };
 
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
@@ -38,23 +38,23 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   }
   const server = await db.server.findUnique({
     where: {
-      id: serverId,
+      id: serverId
     },
     include: {
       channel: {
         orderBy: {
-          createdAt: "asc",
-        },
+          createdAt: "asc"
+        }
       },
       members: {
         include: {
-          profile: true,
+          profile: true
         },
         orderBy: {
-          role: "asc",
-        },
-      },
-    },
+          role: "asc"
+        }
+      }
+    }
   });
 
   const textChannels = server?.channel.filter(
@@ -78,7 +78,13 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   )?.role;
 
   return (
-    <div className={`flex flex-col h-full text-primary w-full  ${profile.bgImage!==null ? "dark:backdrop-brightness-90 dark:backdrop-blur":"dark:bg-[#2B2D31] bg-[#F2F3F5] drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]"}  border-r-[1px] border-[#363739]`}>
+    <div
+      className={`flex flex-col h-full text-primary w-full  ${
+        profile.bgImage !== null
+          ? "dark:backdrop-brightness-90 dark:backdrop-blur"
+          : "dark:bg-[#2B2D31] bg-[#F2F3F5] drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]"
+      }  border-r-[1px] border-[#363739]`}
+    >
       <ServerHeader server={server} role={role} />
       <ScrollArea className=" flex-1 px-3">
         <div className="mt-2">
@@ -90,8 +96,8 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: textChannels?.map((ch) => ({
                   id: ch.id,
                   name: ch.name,
-                  icon: channelIconMap[ch.type],
-                })),
+                  icon: channelIconMap[ch.type]
+                }))
               },
               {
                 label: "Audio Channels",
@@ -99,8 +105,8 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: audioChannels?.map((ch) => ({
                   id: ch.id,
                   name: ch.name,
-                  icon: channelIconMap[ch.type],
-                })),
+                  icon: channelIconMap[ch.type]
+                }))
               },
               {
                 label: "Video Channels",
@@ -108,8 +114,8 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: videoChannels?.map((ch) => ({
                   id: ch.id,
                   name: ch.name,
-                  icon: channelIconMap[ch.type],
-                })),
+                  icon: channelIconMap[ch.type]
+                }))
               },
               {
                 label: "Members",
@@ -117,9 +123,9 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: members?.map((member) => ({
                   id: member.id,
                   name: member.profile.name,
-                  icon: roleiconMap[member.role],
-                })),
-              },
+                  icon: roleiconMap[member.role]
+                }))
+              }
             ]}
           />
         </div>

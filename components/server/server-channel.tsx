@@ -16,13 +16,13 @@ interface ServerChannelProps {
 const iconMap = {
   [ChannelType.TEXT]: Hash,
   [ChannelType.AUDIO]: Mic,
-  [ChannelType.VIDEO]: Video,
+  [ChannelType.VIDEO]: Video
 };
 
 export const ServerChannel = ({
   channels,
   server,
-  role,
+  role
 }: ServerChannelProps) => {
   const { onOpen } = useModal();
   const params = useParams();
@@ -38,7 +38,6 @@ export const ServerChannel = ({
     e.stopPropagation();
     onOpen(action, { channels, server });
   };
-
 
   return (
     <>

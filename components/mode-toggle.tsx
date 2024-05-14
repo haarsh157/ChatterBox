@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 
 export function ModeToggle() {
@@ -18,17 +18,30 @@ export function ModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className=" border-none bg-[#171718] rounded-full" variant="outline" size="icon">
+        <Button
+          className=" border-none bg-[#171718] rounded-full"
+          variant="outline"
+          size="icon"
+        >
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="border-none bg-[#25282a] rounded-xl" align="end">
-        <DropdownMenuItem className=" rounded-xl dark:hover:bg-[#454548] cursor-pointer" onClick={() => setTheme("light")}>
+      <DropdownMenuContent
+        className="border-none bg-[#25282a] rounded-xl"
+        align="end"
+      >
+        <DropdownMenuItem
+          className=" rounded-xl dark:hover:bg-[#454548] cursor-pointer"
+          onClick={() => setTheme("light")}
+        >
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem className=" rounded-xl dark:hover:bg-[#454548] cursor-pointer" onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          className=" rounded-xl dark:hover:bg-[#454548] cursor-pointer"
+          onClick={() => setTheme("dark")}
+        >
           Dark
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -25,26 +25,26 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
       inviteCode: params.inviteCode,
       members: {
         some: {
-          profileId: profile.id,
-        },
-      },
-    },
+          profileId: profile.id
+        }
+      }
+    }
   });
 
   const server = await db.server.update({
     where: {
       inviteCode: params.inviteCode,
-      id: params.id,
+      id: params.id
     },
     data: {
       members: {
         create: [
           {
-            profileId: profile.id,
-          },
-        ],
-      },
-    },
+            profileId: profile.id
+          }
+        ]
+      }
+    }
   });
 
   if (server) {

@@ -9,7 +9,7 @@ import {
   Shield,
   ShieldCheck,
   ShieldQuestion,
-  Ellipsis,
+  Ellipsis
 } from "lucide-react";
 import { useState } from "react";
 import { MemberRole } from "@prisma/client";
@@ -20,7 +20,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal-store";
 import { ServerWithMembersWithProfile } from "@/types";
@@ -35,13 +35,13 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuTrigger,
-  DropdownMenuSubTrigger,
+  DropdownMenuSubTrigger
 } from "@/components/ui/dropdown-menu";
 
 const roleIconMap = {
   GUEST: null,
   MODERATOR: <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
-  ADMIN: <ShieldCheck className="h-4 w-4 text-rose-500" />,
+  ADMIN: <ShieldCheck className="h-4 w-4 text-rose-500" />
 };
 
 export const MembersModal = () => {
@@ -58,8 +58,8 @@ export const MembersModal = () => {
       const url = qs.stringifyUrl({
         url: `/api/members/${memberId}`,
         query: {
-          serverId: server.id,
-        },
+          serverId: server.id
+        }
       });
 
       const response = await axios.patch(url, { role });
@@ -79,8 +79,8 @@ export const MembersModal = () => {
       const url = qs.stringifyUrl({
         url: `/api/members/${memberId}`,
         query: {
-          serverId: server.id,
-        },
+          serverId: server.id
+        }
       });
 
       const response = await axios.delete(url);

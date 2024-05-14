@@ -33,7 +33,7 @@ export async function DELETE(
           some: {
             profileId: profile.id,
             role: {
-              in: [MemberRole.ADMIN, MemberRole.MODERATOR],
+              in: [MemberRole.ADMIN, MemberRole.MODERATOR]
             }
           }
         }
@@ -43,7 +43,7 @@ export async function DELETE(
           delete: {
             id: params.channelId,
             name: {
-              not: "general",
+              not: "general"
             }
           }
         }
@@ -91,7 +91,7 @@ export async function PATCH(
           some: {
             profileId: profile.id,
             role: {
-              in: [MemberRole.ADMIN, MemberRole.MODERATOR],
+              in: [MemberRole.ADMIN, MemberRole.MODERATOR]
             }
           }
         }
@@ -102,12 +102,12 @@ export async function PATCH(
             where: {
               id: params.channelId,
               NOT: {
-                name: "general",
-              },
+                name: "general"
+              }
             },
             data: {
               name,
-              type,
+              type
             }
           }
         }

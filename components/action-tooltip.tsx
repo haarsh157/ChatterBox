@@ -3,7 +3,7 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-  TooltipProvider,
+  TooltipProvider
 } from "@/components/ui/tooltip";
 
 interface ActionTooltipProps {
@@ -17,14 +17,20 @@ const ActionTooltip = ({
   label,
   children,
   side,
-  align,
+  align
 }: ActionTooltipProps) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent className="bg-black border-none rounded-xl" side={side} align={align}>
-          <p className="font-semibold text-sm capitalize">{label.toLowerCase()}</p>
+        <TooltipContent
+          className="bg-black border-none rounded-xl"
+          side={side}
+          align={align}
+        >
+          <p className="font-semibold text-sm capitalize">
+            {label.toLowerCase()}
+          </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
