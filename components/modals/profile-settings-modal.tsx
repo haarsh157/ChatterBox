@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
 import { useClerk } from "@clerk/clerk-react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const formSchema = z.object({
-  bgImage: z.string(),
+  bgImage: z.string()
 });
 
 export const ProfileSettingsModal = () => {
@@ -41,8 +41,8 @@ export const ProfileSettingsModal = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bgImage: "",
-    },
+      bgImage: ""
+    }
   });
 
   const isLoading = form.formState.isSubmitting;

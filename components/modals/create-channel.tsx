@@ -12,7 +12,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -20,7 +20,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "@/components/ui/select";
 import { useEffect } from "react";
 
@@ -39,12 +39,12 @@ const formSchema = z.object({
   name: z
     .string()
     .min(1, {
-      message: "Channel name is required.",
+      message: "Channel name is required."
     })
     .refine((name) => name !== "general", {
-      message: "Channel name cannot be 'general'",
+      message: "Channel name cannot be 'general'"
     }),
-  type: z.nativeEnum(ChannelType),
+  type: z.nativeEnum(ChannelType)
 });
 
 export const CreateChannelModal = () => {
@@ -59,8 +59,8 @@ export const CreateChannelModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: channelType || ChannelType.TEXT,
-    },
+      type: channelType || ChannelType.TEXT
+    }
   });
 
   useEffect(() => {
@@ -78,8 +78,8 @@ export const CreateChannelModal = () => {
       const url = qs.stringifyUrl({
         url: "/api/channels",
         query: {
-          serverId: params?.serverId,
-        },
+          serverId: params?.serverId
+        }
       });
       await axios.post(url, values);
 

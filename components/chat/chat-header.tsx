@@ -15,7 +15,7 @@ export const ChatHeader = ({
   name,
   type,
   imageUrl,
-  bgImage,
+  bgImage
 }: ChatHeaderProps) => {
   return (
     <>

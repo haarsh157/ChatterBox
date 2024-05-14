@@ -17,7 +17,7 @@ export const NavigationItem = ({
   id,
   imageUrl,
   name,
-  bgImage,
+  bgImage
 }: NavigationItemProps) => {
   const params = useParams();
   const router = useRouter();

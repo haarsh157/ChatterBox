@@ -15,7 +15,7 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
       style={{
         backgroundImage: profile.bgImage ? `url("${profile.bgImage}")` : "",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center"
       }}
     >
       {profile.bgImage && (

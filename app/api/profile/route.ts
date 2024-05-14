@@ -12,11 +12,11 @@ export async function PATCH(req: Request) {
 
     const newProfile = await db.profile.update({
       where: {
-        id: profile.id,
+        id: profile.id
       },
       data: {
-        bgImage,
-      },
+        bgImage
+      }
     });
 
     return NextResponse.json(newProfile);
@@ -33,8 +33,8 @@ export async function DELETE(req: Request) {
 
     await db.profile.delete({
       where: {
-        id: profile.id,
-      },
+        id: profile.id
+      }
     });
 
     db.server.deleteMany({
@@ -43,11 +43,11 @@ export async function DELETE(req: Request) {
           some: {
             profileId: profile.id,
             role: {
-              in: [MemberRole.ADMIN],
-            },
-          },
-        },
-      },
+              in: [MemberRole.ADMIN]
+            }
+          }
+        }
+      }
     });
 
     return new NextResponse("Profile deleted successfully", { status: 200 });

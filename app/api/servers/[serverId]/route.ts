@@ -16,8 +16,8 @@ export async function DELETE(
     const server = await db.server.delete({
       where: {
         id: params.serverId,
-        profileId: profile.id,
-      },
+        profileId: profile.id
+      }
     });
 
     return NextResponse.json(server);

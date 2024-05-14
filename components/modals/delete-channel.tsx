@@ -9,7 +9,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
@@ -31,8 +31,8 @@ export const DeleteChannelModal = () => {
       const url = qs.stringifyUrl({
         url: `/api/channels/${channels?.id}`,
         query: {
-          serverId: server?.id,
-        },
+          serverId: server?.id
+        }
       });
 
       await axios.delete(url);
@@ -64,7 +64,12 @@ export const DeleteChannelModal = () => {
         </DialogHeader>
         <DialogFooter className="bg-[#1e1f22] px-6 py-4">
           <div className="flex items-center justify-between w-full">
-            <Button className=" dark:hover:bg-[#313338] rounded-xl" disabled={isLoading} onClick={onClose} variant="ghost">
+            <Button
+              className=" dark:hover:bg-[#313338] rounded-xl"
+              disabled={isLoading}
+              onClick={onClose}
+              variant="ghost"
+            >
               Cancel
             </Button>
             <Button

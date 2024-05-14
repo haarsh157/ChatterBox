@@ -6,7 +6,7 @@ import { ServerSidebar } from "@/components/server/server-sidebar";
 
 const ServerIdLayout = async ({
   children,
-  params,
+  params
 }: {
   children: React.ReactNode;
   params: { serverId: string };
@@ -22,10 +22,10 @@ const ServerIdLayout = async ({
       id: params.serverId,
       members: {
         some: {
-          profileId: profile.id,
-        },
-      },
-    },
+          profileId: profile.id
+        }
+      }
+    }
   });
 
   if (!server) {

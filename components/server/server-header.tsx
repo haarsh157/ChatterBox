@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {
   ChevronDown,
@@ -15,7 +15,7 @@ import {
   Settings,
   Trash,
   UserIcon,
-  UserPlus,
+  UserPlus
 } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 

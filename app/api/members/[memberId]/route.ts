@@ -28,7 +28,7 @@ export async function PATCH(
     const server = await db.server.update({
       where: {
         id: serverId,
-        profileId: profile.id,
+        profileId: profile.id
       },
       data: {
         members: {
@@ -36,25 +36,25 @@ export async function PATCH(
             where: {
               id: params.memberId,
               profileId: {
-                not: profile.id,
-              },
+                not: profile.id
+              }
             },
             data: {
-              role,
-            },
-          },
-        },
+              role
+            }
+          }
+        }
       },
       include: {
         members: {
           include: {
-            profile: true,
+            profile: true
           },
           orderBy: {
-            role: "asc",
-          },
-        },
-      },
+            role: "asc"
+          }
+        }
+      }
     });
 
     return NextResponse.json(server);
@@ -89,28 +89,28 @@ export async function DELETE(
     const server = await db.server.update({
       where: {
         id: serverId,
-        profileId: profile.id,
+        profileId: profile.id
       },
       data: {
         members: {
           deleteMany: {
             id: params.memberId,
             profileId: {
-              not: profile.id,
-            },
-          },
-        },
+              not: profile.id
+            }
+          }
+        }
       },
       include: {
         members: {
           include: {
-            profile: true,
+            profile: true
           },
           orderBy: {
-            role: "asc",
-          },
-        },
-      },
+            role: "asc"
+          }
+        }
+      }
     });
 
     return NextResponse.json(server);

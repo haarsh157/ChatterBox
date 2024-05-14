@@ -8,7 +8,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
+  CommandList
 } from "@/components/ui/command";
 import { useParams, useRouter } from "next/navigation";
 
@@ -45,7 +45,7 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
 
   const onClick = ({
     id,
-    type,
+    type
   }: {
     id: string;
     type: "channel" | "member";

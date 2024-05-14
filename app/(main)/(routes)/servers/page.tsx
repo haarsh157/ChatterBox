@@ -12,10 +12,10 @@ const ServerPage = async () => {
     where: {
       members: {
         some: {
-          profileId: profile.id,
-        },
-      },
-    },
+          profileId: profile.id
+        }
+      }
+    }
   });
   if (server) {
     return redirect(`/servers/${server.id}`);

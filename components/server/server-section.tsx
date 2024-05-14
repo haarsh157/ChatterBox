@@ -19,7 +19,7 @@ export const ServerSection = ({
   role,
   sectionType,
   channelType,
-  server,
+  server
 }: ServerSectionProps) => {
   const { onOpen } = useModal();
 

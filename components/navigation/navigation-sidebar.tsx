@@ -20,16 +20,16 @@ export const NavigationSidebar = async () => {
     where: {
       members: {
         some: {
-          profileId: profile.id,
-        },
-      },
-    },
+          profileId: profile.id
+        }
+      }
+    }
   });
 
   return (
     <div
       className={`space-y-4 flex flex-col items-center h-full text-primary w-full py-3 ${
-        profile.bgImage!==null
+        profile.bgImage !== null
           ? "dark:backdrop-brightness-50 dark:backdrop-blur"
           : "dark:bg-[#1E1F22] bg-[#E3E5E8]"
       }   border-r-[1px] border-[#363739]`}

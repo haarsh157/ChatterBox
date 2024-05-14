@@ -27,8 +27,8 @@ export const ModalProvider = () => {
       <MembersModal />
       <CreateChannelModal />
       <DeleteChannelModal />
-      <EditChannel/>
-      <ProfileSettingsModal/>
+      <EditChannel />
+      <ProfileSettingsModal />
     </>
   );
 };

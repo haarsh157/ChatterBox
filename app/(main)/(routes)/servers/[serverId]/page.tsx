@@ -20,20 +20,20 @@ const ServerPage = async ({ params }: ServerIdPageProps) => {
       id: params.serverId,
       members: {
         some: {
-          profileId: profile.id,
-        },
-      },
+          profileId: profile.id
+        }
+      }
     },
     include: {
       channel: {
         where: {
-          name: "general",
+          name: "general"
         },
         orderBy: {
-          createdAt: "asc",
-        },
-      },
-    },
+          createdAt: "asc"
+        }
+      }
+    }
   });
 
   const initialChannel = server?.channel[0];

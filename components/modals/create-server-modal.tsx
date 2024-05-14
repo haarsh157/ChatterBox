@@ -9,7 +9,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -17,7 +17,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -27,11 +27,11 @@ import { useModal } from "@/hooks/use-modal-store";
 
 const formSchema = z.object({
   name: z.string().min(1, {
-    message: "Server name is required.",
+    message: "Server name is required."
   }),
   imageUrl: z.string().min(1, {
-    message: "Server image is required.",
-  }),
+    message: "Server image is required."
+  })
 });
 
 export const CreateServerlModal = () => {
@@ -44,8 +44,8 @@ export const CreateServerlModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      imageUrl: "",
-    },
+      imageUrl: ""
+    }
   });
 
   const isLoading = form.formState.isSubmitting;
