@@ -1,4 +1,5 @@
 import { ChatHeader } from "@/components/chat/chat-header";
+import { ChatInput } from "@/components/chat/chat-input";
 import { findOrCreateConvo } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
@@ -57,6 +58,14 @@ const MemberIdPage = async ({ params }: MemberIdPageProps) => {
             type="conversation"
             imageUrl={otherMember.profile.imageUrl}
             bgImage={profile.bgImage}
+          />
+          <ChatInput
+            name={otherMember.profile.name}
+            type="conversation"
+            apiUrl="/api/socket/direct-messages"
+            query={{
+              conversationId: conversation.id
+            }}
           />
         </div>
       </div>
