@@ -124,11 +124,11 @@ export const ChatItem = ({
   const isImage = !isPDF && fileUrl;
 
   return (
-    <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full dark:backdrop-brightness-90 dark:backdrop-blur">
+    <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full ">
       <div className="group flex gap-x-2 items-start w-full">
         <div
           onClick={onMemberClick}
-          className="cursor-pointer hover:drop-shadow-md transition"
+          className="cursor-pointer transition"
         >
           <UserAvatar src={member.profile.imageUrl} />
         </div>
