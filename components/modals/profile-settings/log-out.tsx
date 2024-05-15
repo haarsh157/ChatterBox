@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export const LogOut = () => {
-  const { isOpen, onClose, type, data } = useModal();
+  const { onClose } = useModal();
   const router = useRouter();
 
   const { signOut } = useClerk();

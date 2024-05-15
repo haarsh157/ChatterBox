@@ -3,13 +3,11 @@
 import { FileUpload } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -30,7 +28,7 @@ const formSchema = z.object({
 });
 
 export const ChangeBgImg = () => {
-  const { isOpen, onClose, type, data } = useModal();
+  const { onClose } = useModal();
   const router = useRouter();
 
   const form = useForm({
