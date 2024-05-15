@@ -22,10 +22,10 @@ export const ChatHeader = ({
   return (
     <>
       <div
-        className={`text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 sticky ${
+        className={`text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 md:fixed sticky w-full z-50 top-0 ${
           bgImage !== null
             ? "dark:backdrop-brightness-50 dark:backdrop-blur"
-            : "dark:bg-[#1E1F22] bg-[#E3E5E8]"
+            : "dark:bg-[#0f0f11] bg-[#E3E5E8]"
         }`}
       >
         <MobileToggle serverId={serverId} />

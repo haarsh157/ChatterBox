@@ -3,6 +3,7 @@
 import { useModal } from "@/hooks/use-modal-store";
 import ActionTooltip from "../action-tooltip";
 import Image from "next/image";
+import { Settings } from "lucide-react";
 
 interface ProfileSettingsProps {
   profile: any;
@@ -32,6 +33,7 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
             {profile.email}
           </p>
         </div>
+        <Settings className="mr-2 h-6 w-6" />
       </button>
     </ActionTooltip>
   );
