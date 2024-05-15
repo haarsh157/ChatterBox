@@ -12,7 +12,7 @@ import { useModal } from "@/hooks/use-modal-store";
 import React, { useState } from "react";
 
 export const DeleteProfile = () => {
-  const { isOpen, onClose, type, data } = useModal();
+  const { onClose} = useModal();
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   const handleDelete = async () => {

@@ -6,20 +6,11 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
-import { useClerk } from "@clerk/clerk-react";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { FileUpload } from "../file-upload";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { ChangeBgImg } from "./profile-settings/change-bgImg";
 import { LogOut } from "./profile-settings/log-out";
 import { DeleteProfile } from "./profile-settings/delete-profile";
@@ -30,34 +21,11 @@ const formSchema = z.object({
 });
 
 export const ProfileSettingsModal = () => {
-  const { isOpen, onClose, type, data } = useModal();
-  const router = useRouter();
-
-  const { profile } = data;
+  const { isOpen, onClose, type } = useModal();
 
   const isModalOpen = isOpen && type === "profileSettings";
   const handleClose = () => {
     onClose();
-  };
-
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      bgImage: ""
-    }
-  });
-
-  const isLoading = form.formState.isSubmitting;
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      await axios.patch(`/api/profile/`, values);
-      form.reset();
-      router.refresh();
-      onClose();
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
