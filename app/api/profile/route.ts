@@ -8,18 +8,31 @@ export async function PATCH(req: Request) {
     const profile = await currentProfile();
 
     if (!profile) return new NextResponse("Unauthorized", { status: 401 });
-    const { bgImage } = await req.json();
+    const { bgImage, imageUrl } = await req.json();
 
-    const newProfile = await db.profile.update({
-      where: {
-        id: profile.id
-      },
-      data: {
-        bgImage
-      }
-    });
+    if (!imageUrl) {
+      const newProfile = await db.profile.update({
+        where: {
+          id: profile.id
+        },
+        data: {
+          bgImage
+        }
+      });
 
-    return NextResponse.json(newProfile);
+      return NextResponse.json(newProfile);
+    } else if (!bgImage) {
+      const newProfile = await db.profile.update({
+        where: {
+          id: profile.id
+        },
+        data: {
+          imageUrl
+        }
+      });
+
+      return NextResponse.json(newProfile);
+    }
   } catch (error) {
     console.log(error);
     return new NextResponse("Internal error", { status: 500 });
