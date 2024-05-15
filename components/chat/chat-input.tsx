@@ -62,7 +62,9 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="relative p-4 pb-6">
+                <div
+                  className="md:relative p-4 pb-6 bottom-0 sticky"
+                  >
                   <button
                     type="button"
                     onClick={() => onOpen("messageFile", { apiUrl, query })}
