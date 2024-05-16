@@ -4,6 +4,7 @@ import { Message } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 const MESSAGE_BATCH = 20;
+export const dynamic = "force-dynamic"; 
 
 export async function GET(req: Request) {
   try {
