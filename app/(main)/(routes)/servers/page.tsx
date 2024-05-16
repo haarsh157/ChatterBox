@@ -50,7 +50,7 @@ const ServerPage = async () => {
           <InitialServer />
         </div>
       </div>
-      {profile.username === "" && <InitialModal />}
+      <InitialModal profile={profile} />
     </div>
   );
 };
