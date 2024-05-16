@@ -9,19 +9,38 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal-store";
+import { useClerk } from "@clerk/nextjs";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export const DeleteProfile = () => {
-  const { onClose} = useModal();
+  const { onClose } = useModal();
+  const router = useRouter();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const { signOut } = useClerk();
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await signOut();
+      router.push("/");
+      router.refresh();
+      onClose();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSigningOut(false);
+    }
+  };
 
   const handleDelete = async () => {
     try {
-      // await handleSignOut();
-      // await axios.delete(`/api/profile`);
-      // router.push("/");
-      // router.refresh();
+      await axios.delete(`/api/profile`);
+      await handleSignOut();
       onClose();
+      router.push("/");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }

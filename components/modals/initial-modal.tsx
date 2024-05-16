@@ -35,10 +35,9 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export const InitialModal = () => {
+export const InitialModal = ({ profile }: any) => {
   const { onClose, isOpen } = useModal();
   const [isMounted, setIsMounted] = useState(false);
-  const isModalOpen = isOpen;
 
   const router = useRouter();
 
@@ -72,19 +71,22 @@ export const InitialModal = () => {
     return null;
   }
 
+  const isModalOpen = isOpen || profile.username === null;
+
   const saveButton = isLoading ? (
     <div className="flex items-center">
-      <div className="animate-spin rounded-full h-6 w-6 border-b-2  mr-2"></div>
+      <div className="animate-spin rounded-full h-6 w-6 border-b-2 mr-2"></div>
       <span>Editing...</span>
     </div>
   ) : (
-    <Button className=" rounded-xl" variant="primary" disabled={isLoading}>
+    <Button className="rounded-xl" variant="primary" disabled={isLoading}>
       Save
     </Button>
   );
+  console.log(profile)
 
   return (
-    <Dialog open={isModalOpen}>
+    <Dialog open={profile.username === ""}>
       <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
