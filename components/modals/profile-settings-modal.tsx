@@ -15,6 +15,8 @@ import { ChangeBgImg } from "./profile-settings/change-bgImg";
 import { LogOut } from "./profile-settings/log-out";
 import { DeleteProfile } from "./profile-settings/delete-profile";
 import { ChangePfp } from "./profile-settings/change-pfp";
+import { ChangeUserName } from "./profile-settings/change-username";
+import { Separator } from "@/components/ui/separator";
 
 export const ProfileSettingsModal = () => {
   const { isOpen, onClose, type } = useModal();
@@ -26,7 +28,7 @@ export const ProfileSettingsModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)] w-full h">
+      <DialogContent className="bg-[#313338] text-white p-4 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)] w-full h ">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Profile Settings
@@ -37,6 +39,19 @@ export const ProfileSettingsModal = () => {
         </DialogHeader>
 
         <div className="flex flex-col justify-center items-center">
+          {/* Change Username */}
+          <Dialog>
+            <DialogTrigger
+              className="w-[100%] flex justify-center items-center"
+              asChild
+            >
+              <Button className="group px-2 py-2 rounded-xl flex items-center gap-x-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1 w-[50%]">
+                Change Username
+              </Button>
+            </DialogTrigger>
+            <ChangeUserName />
+          </Dialog>
+          {/* Change Theme */}
           <Dialog>
             <DialogTrigger
               className="w-[100%] flex justify-center items-center"
@@ -59,8 +74,10 @@ export const ProfileSettingsModal = () => {
                 Change Your PFP
               </Button>
             </DialogTrigger>
-            <ChangePfp/>
+            <ChangePfp />
           </Dialog>
+
+          <Separator className=" bg-zinc-200 dark:bg-zinc-600 m-2" />
 
           {/* Log Out */}
           <Dialog>

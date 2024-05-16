@@ -8,9 +8,20 @@ export async function PATCH(req: Request) {
     const profile = await currentProfile();
 
     if (!profile) return new NextResponse("Unauthorized", { status: 401 });
-    const { bgImage, imageUrl } = await req.json();
+    const { bgImage, imageUrl, username } = await req.json();
 
-    if (!imageUrl) {
+    if (imageUrl) {
+      const newProfile = await db.profile.update({
+        where: {
+          id: profile.id
+        },
+        data: {
+          imageUrl
+        }
+      });
+
+      return NextResponse.json(newProfile);
+    } else if (bgImage) {
       const newProfile = await db.profile.update({
         where: {
           id: profile.id
@@ -21,13 +32,13 @@ export async function PATCH(req: Request) {
       });
 
       return NextResponse.json(newProfile);
-    } else if (!bgImage) {
+    } else if (username) {
       const newProfile = await db.profile.update({
         where: {
           id: profile.id
         },
         data: {
-          imageUrl
+          username
         }
       });
 

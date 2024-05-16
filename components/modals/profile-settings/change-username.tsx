@@ -35,57 +35,56 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export const InitialModal = () => {
-  const { onClose, isOpen } = useModal();
-  const [isMounted, setIsMounted] = useState(false);
-  const isModalOpen = isOpen;
-
-  const router = useRouter();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: ""
+export const ChangeUserName = () => {
+    const { onClose, isOpen } = useModal();
+    const [isMounted, setIsMounted] = useState(false);
+    const isModalOpen = isOpen;
+  
+    const router = useRouter();
+  
+    useEffect(() => {
+      setIsMounted(true);
+    }, []);
+  
+    const form = useForm<FormData>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        username: ""
+      }
+    });
+  
+    const isLoading = form.formState.isSubmitting;
+  
+    const onSubmit: SubmitHandler<FormData> = async (values) => {
+      try {
+        await axios.patch("/api/profile", values);
+  
+        form.reset();
+        router.refresh();
+        onClose();
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    if (!isMounted) {
+      return null;
     }
-  });
-
-  const isLoading = form.formState.isSubmitting;
-
-  const onSubmit: SubmitHandler<FormData> = async (values) => {
-    try {
-      await axios.patch("/api/profile", values);
-
-      form.reset();
-      router.refresh();
-      onClose();
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  if (!isMounted) {
-    return null;
-  }
-
-  const saveButton = isLoading ? (
-    <div className="flex items-center">
-      <div className="animate-spin rounded-full h-6 w-6 border-b-2  mr-2"></div>
-      <span>Editing...</span>
-    </div>
-  ) : (
-    <Button className=" rounded-xl" variant="primary" disabled={isLoading}>
-      Save
-    </Button>
-  );
+  
+    const saveButton = isLoading ? (
+      <div className="flex items-center">
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2  mr-2"></div>
+        <span>Editing...</span>
+      </div>
+    ) : (
+      <Button className=" rounded-xl" variant="primary" disabled={isLoading}>
+        Save
+      </Button>
+    );
 
   return (
-    <Dialog open={isModalOpen}>
-      <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
+    <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Enter your desired Username
@@ -124,6 +123,5 @@ export const InitialModal = () => {
           </form>
         </Form>
       </DialogContent>
-    </Dialog>
   );
 };
