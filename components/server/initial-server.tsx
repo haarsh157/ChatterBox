@@ -3,11 +3,7 @@
 import { useModal } from "@/hooks/use-modal-store";
 import { Plus } from "lucide-react";
 
-interface ProfileSettingsProps {
-  profile: any;
-}
-
-const InitialServer = ({ profile }: ProfileSettingsProps) => {
+const InitialServer = () => {
   const { onOpen } = useModal();
 
   return (
