@@ -33,7 +33,7 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
         console.log(e);
       }
     })();
-  }, [user?.username, chatId]);
+  }, [user?.firstName, user?.lastName, user?.username, chatId]);
 
   if (token === "") {
     return (

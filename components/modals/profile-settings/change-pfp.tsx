@@ -69,7 +69,7 @@ export const ChangePfp = () => {
           Change Your PFP
         </DialogTitle>
         <DialogDescription className="text-center text-zinc-400">
-          Make changes to your profile here. Click save when you're done.
+          Make changes to your profile here. Click save when you&apos;re done.
         </DialogDescription>
       </DialogHeader>
       <Form {...form}>

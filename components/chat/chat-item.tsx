@@ -35,7 +35,7 @@ interface ChatItemProps {
   socketQuery: Record<string, string>;
 }
 
-const roleIconMap = {
+const roleIconMap: Record<MemberRole, JSX.Element | null> = {
   GUEST: null,
   MODERATOR: <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
   ADMIN: <ShieldCheck className="h-4 w-4 ml-2 text-rose-500" />
@@ -72,15 +72,15 @@ export const ChatItem = ({
   };
 
   useEffect(() => {
-    const handleKeyDown = (event: any) => {
-      if (event.key === "Escape" || event.keyCode === 27) {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" || event.key === "Esc") {
         setIsEditing(false);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
 
-    return () => window.removeEventListener("keyDown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -104,7 +104,7 @@ export const ChatItem = ({
       form.reset();
       setIsEditing(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -112,7 +112,7 @@ export const ChatItem = ({
     form.reset({
       content: content
     });
-  }, [content]);
+  }, [content, form]);
 
   const fileType = fileUrl?.split(".").pop();
 
@@ -133,7 +133,7 @@ export const ChatItem = ({
       id={id}
       socketQuery={socketQuery}
     >
-      <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full ">
+      <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full">
         <div className="group flex gap-x-2 items-start w-full">
           <div onClick={onMemberClick} className="cursor-pointer transition">
             <UserAvatar src={member.profile.imageUrl} />
@@ -160,7 +160,7 @@ export const ChatItem = ({
                 href={fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48 border-none "
+                className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48 border-none"
               >
                 <Image
                   src={fileUrl}
