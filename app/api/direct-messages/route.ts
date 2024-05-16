@@ -5,6 +5,7 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 
 const MESSAGES_BATCH = 10;
+export const dynamic = "force-dynamic"; 
 
 export async function GET(
   req: Request
