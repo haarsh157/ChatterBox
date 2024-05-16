@@ -66,7 +66,7 @@ export const ChangeBgImg = () => {
     <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
       <DialogHeader className="pt-8 px-6">
         <DialogTitle className="text-2xl text-center font-bold">
-          Change The Background
+          Change The Theme
         </DialogTitle>
         <DialogDescription className="text-center text-zinc-400">
           Make changes to your profile here. Click save when you're done.

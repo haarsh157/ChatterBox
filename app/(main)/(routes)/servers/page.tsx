@@ -1,8 +1,8 @@
+import { InitialModal } from "@/components/modals/initial-modal";
 import InitialServer from "@/components/server/initial-server";
 import { ProfileSettings } from "@/components/server/profile-settings";
 import { db } from "@/lib/db";
 import { initialProfile } from "@/lib/initial-profile";
-import { UserButton } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 const ServerPage = async () => {
@@ -47,9 +47,10 @@ const ServerPage = async () => {
           </p>
         </div>
         <div className=" w-full flex justify-center items-center">
-          <InitialServer profile={profile} />
+          <InitialServer />
         </div>
       </div>
+      <InitialModal />
     </div>
   );
 };

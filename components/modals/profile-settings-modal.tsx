@@ -16,10 +16,6 @@ import { LogOut } from "./profile-settings/log-out";
 import { DeleteProfile } from "./profile-settings/delete-profile";
 import { ChangePfp } from "./profile-settings/change-pfp";
 
-const formSchema = z.object({
-  bgImage: z.string()
-});
-
 export const ProfileSettingsModal = () => {
   const { isOpen, onClose, type } = useModal();
 
@@ -30,7 +26,7 @@ export const ProfileSettingsModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
+      <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)] w-full h">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Profile Settings
@@ -47,7 +43,7 @@ export const ProfileSettingsModal = () => {
               asChild
             >
               <Button className="group px-2 py-2 rounded-xl flex items-center gap-x-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1 w-[50%]">
-                Change The Background
+                Change The Theme
               </Button>
             </DialogTrigger>
             <ChangeBgImg />
