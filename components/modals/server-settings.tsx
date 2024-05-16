@@ -78,6 +78,17 @@ export const ServerSettings = () => {
     onClose();
   };
 
+  const doneButton = isLoading ? (
+    <div className="flex items-center">
+      <div className="animate-spin rounded-full h-6 w-6 border-b-2  mr-2"></div>
+      <span>Creating...</span>
+    </div>
+  ) : (
+    <Button className=" rounded-xl" variant="primary" disabled={isLoading}>
+      Save
+    </Button>
+  );
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
@@ -133,13 +144,7 @@ export const ServerSettings = () => {
               />
             </div>
             <DialogFooter className="bg-[#1e1f22] px-6 py-4">
-              <Button
-                className=" rounded-xl"
-                variant="primary"
-                disabled={isLoading}
-              >
-                Save
-              </Button>
+              {doneButton}
             </DialogFooter>
           </form>
         </Form>

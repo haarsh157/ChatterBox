@@ -51,6 +51,24 @@ export const InviteModal = () => {
     }
   };
 
+  const newLinkGenerate = isLoading ? (
+    <div className="flex items-center">
+      <div className="animate-spin rounded-full h-6 w-6 border-b-2  mr-2"></div>
+      <span>Generating...</span>
+    </div>
+  ) : (
+    <Button
+      onClick={onNew}
+      disabled={isLoading}
+      variant="link"
+      size="sm"
+      className="text-xs text-zinc-200 mt-4"
+    >
+      Generate a new link
+      <RefreshCw className="w-4 h-4 ml-2" />
+    </Button>
+  );
+
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
@@ -79,16 +97,7 @@ export const InviteModal = () => {
               )}
             </Button>
           </div>
-          <Button
-            onClick={onNew}
-            disabled={isLoading}
-            variant="link"
-            size="sm"
-            className="text-xs text-zinc-200 mt-4"
-          >
-            Generate a new link
-            <RefreshCw className="w-4 h-4 ml-2" />
-          </Button>
+          {newLinkGenerate}
         </div>
       </DialogContent>
     </Dialog>

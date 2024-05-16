@@ -66,6 +66,17 @@ export const CreateServerlModal = () => {
     }
   };
 
+  const createButton = isLoading ? (
+    <div className="flex items-center">
+      <div className="animate-spin rounded-full h-6 w-6 border-b-2  mr-2"></div>
+      <span>Creating...</span>
+    </div>
+  ) : (
+    <Button variant="primary" className=" rounded-[10px]" disabled={isLoading}>
+      Create
+    </Button>
+  );
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
@@ -121,13 +132,7 @@ export const CreateServerlModal = () => {
               />
             </div>
             <DialogFooter className="bg-[#1e1f22] px-6 py-4">
-              <Button
-                variant="primary"
-                className=" rounded-[10px]"
-                disabled={isLoading}
-              >
-                Create
-              </Button>
+              {createButton}
             </DialogFooter>
           </form>
         </Form>
