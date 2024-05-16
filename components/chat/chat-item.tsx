@@ -18,6 +18,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
+import { ChatContextMenu } from "./chat-context-menu";
 
 interface ChatItemProps {
   id: string;
@@ -124,133 +125,139 @@ export const ChatItem = ({
   const isImage = !isPDF && fileUrl;
 
   return (
-    <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full ">
-      <div className="group flex gap-x-2 items-start w-full">
-        <div
-          onClick={onMemberClick}
-          className="cursor-pointer transition"
-        >
-          <UserAvatar src={member.profile.imageUrl} />
-        </div>
-        <div className="flex flex-col w-full">
-          <div className="flex items-center gap-x-2">
-            <div className="flex items-center">
-              <p
-                onClick={onMemberClick}
-                className="font-semibold text-sm hover:underline cursor-pointer"
-              >
-                {member.profile.name}
-              </p>
-              <ActionTooltip label={member.role}>
-                {roleIconMap[member.role]}
-              </ActionTooltip>
-            </div>
-            <span className="text-xs text-zinc-500 dark:text-zinc-400">
-              {timestamp}
-            </span>
+    <ChatContextMenu
+      canDeleteMessage={canDeleteMessage}
+      canEditMessage={canEditMessage}
+      setIsEditing={setIsEditing}
+      socketUrl={socketUrl}
+      id={id}
+      socketQuery={socketQuery}
+    >
+      <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full ">
+        <div className="group flex gap-x-2 items-start w-full">
+          <div onClick={onMemberClick} className="cursor-pointer transition">
+            <UserAvatar src={member.profile.imageUrl} />
           </div>
-          {isImage && (
-            <a
-              href={fileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48 border-none "
-            >
-              <Image
-                src={fileUrl}
-                alt={content}
-                fill
-                className="object-cover"
-              />
-            </a>
-          )}
-          {isPDF && (
-            <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-              <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+          <div className="flex flex-col w-full">
+            <div className="flex items-center gap-x-2">
+              <div className="flex items-center">
+                <p
+                  onClick={onMemberClick}
+                  className="font-semibold text-sm hover:underline cursor-pointer"
+                >
+                  {member.profile.name}
+                </p>
+                <ActionTooltip label={member.role}>
+                  {roleIconMap[member.role]}
+                </ActionTooltip>
+              </div>
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                {timestamp}
+              </span>
+            </div>
+            {isImage && (
               <a
                 href={fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+                className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48 border-none "
               >
-                PDF File
-              </a>
-            </div>
-          )}
-          {!isEditing && (
-            <p
-              className={cn(
-                "text-sm text-zinc-600 dark:text-zinc-300",
-                deleted &&
-                  "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
-              )}
-            >
-              {content === fileUrl ? null : content}
-              {isUpdated && !deleted && (
-                <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
-                  (edited)
-                </span>
-              )}
-            </p>
-          )}
-          {isEditing && (
-            <Form {...form}>
-              <form
-                className="flex items-center w-full gap-x-2 pt-2"
-                onSubmit={form.handleSubmit(onSubmit)}
-              >
-                <FormField
-                  control={form.control}
-                  name="content"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input
-                            disabled={isLoading}
-                            className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                            placeholder="Edited message"
-                            {...field}
-                          />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
+                <Image
+                  src={fileUrl}
+                  alt={content}
+                  fill
+                  className="object-cover"
                 />
-                <Button disabled={isLoading} size="sm" variant="primary">
-                  Save
-                </Button>
-              </form>
-              <span className="text-[10px] mt-1 text-zinc-400">
-                Press escape to cancel, enter to save
-              </span>
-            </Form>
-          )}
+              </a>
+            )}
+            {isPDF && (
+              <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
+                <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+                <a
+                  href={fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+                >
+                  PDF File
+                </a>
+              </div>
+            )}
+            {!isEditing && (
+              <p
+                className={cn(
+                  "text-sm text-zinc-600 dark:text-zinc-300",
+                  deleted &&
+                    "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
+                )}
+              >
+                {content === fileUrl ? null : content}
+                {isUpdated && !deleted && (
+                  <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                    (edited)
+                  </span>
+                )}
+              </p>
+            )}
+            {isEditing && (
+              <Form {...form}>
+                <form
+                  className="flex items-center w-full gap-x-2 pt-2"
+                  onSubmit={form.handleSubmit(onSubmit)}
+                >
+                  <FormField
+                    control={form.control}
+                    name="content"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormControl>
+                          <div className="relative w-full">
+                            <Input
+                              disabled={isLoading}
+                              className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                              placeholder="Edited message"
+                              {...field}
+                            />
+                          </div>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <Button disabled={isLoading} size="sm" variant="primary">
+                    Save
+                  </Button>
+                </form>
+                <span className="text-[10px] mt-1 text-zinc-400">
+                  Press escape to cancel, enter to save
+                </span>
+              </Form>
+            )}
+          </div>
         </div>
-      </div>
-      {canDeleteMessage && (
-        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
-          {canEditMessage && (
-            <ActionTooltip label="Edit">
-              <Edit
-                onClick={() => setIsEditing(true)}
+        {canDeleteMessage && (
+          <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+            {canEditMessage && (
+              <ActionTooltip label="Edit">
+                <Edit
+                  onClick={() => setIsEditing(true)}
+                  className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                />
+              </ActionTooltip>
+            )}
+            <ActionTooltip label="Delete">
+              <Trash
+                onClick={() =>
+                  onOpen("deleteMessage", {
+                    apiUrl: `${socketUrl}/${id}`,
+                    query: socketQuery
+                  })
+                }
                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
               />
             </ActionTooltip>
-          )}
-          <ActionTooltip label="Delete">
-            <Trash
-              onClick={() =>
-                onOpen("deleteMessage", {
-                  apiUrl: `${socketUrl}/${id}`,
-                  query: socketQuery
-                })
-              }
-              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-            />
-          </ActionTooltip>
-        </div>
-      )}
-    </div>
+          </div>
+        )}
+      </div>
+    </ChatContextMenu>
   );
 };

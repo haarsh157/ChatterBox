@@ -47,6 +47,20 @@ export const DeleteChannelModal = () => {
     }
   };
 
+  const deleteButton = isLoading ? (
+    <div className="flex items-center">
+      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-rose-500 mr-2"></div>
+      <span className=" text-rose-500">Deleting...</span>
+    </div>
+  ) : (
+    <Button
+      className="rounded-xl dark:hover:text-white dark:hover:bg-rose-500 text-rose-500"
+      onClick={onClick}
+    >
+      Confirm
+    </Button>
+  );
+
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent className="bg-[#313338] text-white p-0 overflow-hidden border-none drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]">
@@ -72,14 +86,7 @@ export const DeleteChannelModal = () => {
             >
               Cancel
             </Button>
-            <Button
-              disabled={isLoading}
-              className="bg-rose-600 rounded-xl dark:bg-[#da373c] dark:hover:bg-[#ff3c43]"
-              variant="destructive"
-              onClick={onClick}
-            >
-              Confirm
-            </Button>
+            {deleteButton}
           </div>
         </DialogFooter>
       </DialogContent>
