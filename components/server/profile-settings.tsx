@@ -27,10 +27,10 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
         />
         <div className="pl-4 cursor-pointer  h-full w-full flex justify-center  flex-col">
           <p className=" text-xs text-gray-300 font-semibold flex items-center gap-x-1">
-            {profile.name}
+            {profile.username}
           </p>
           <p className=" text-xs text-gray-300 font-medium flex items-center gap-x-1">
-            {profile.email}
+            {profile.name}
           </p>
         </div>
         <Settings className="mr-2 h-6 w-6" />

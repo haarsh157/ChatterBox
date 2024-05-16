@@ -17,6 +17,7 @@ model Profile {
   id String @id @default(uuid()) @map("_id") 
   userId String @unique
   name String
+  username String @unique
   imageUrl String @db.String
   email String @db.String
   bgImage String? @db.String
