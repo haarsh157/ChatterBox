@@ -2,8 +2,8 @@
 
 import { useModal } from "@/hooks/use-modal-store";
 import ActionTooltip from "../action-tooltip";
-import Image from "next/image";
 import { Settings } from "lucide-react";
+import { UserAvatar } from "../user-avatar";
 
 interface ProfileSettingsProps {
   profile: any;
@@ -18,12 +18,9 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
         onClick={() => onOpen("profileSettings", { profile })}
         className=" h-[60px] flex items-center dark:hover:bg-[#454548] dark:hover:text-gray-200 z-50"
       >
-        <Image
+        <UserAvatar
           src={profile.imageUrl}
-          alt={"image"}
-          height={40}
-          width={40}
-          className="ml-2 rounded-full"
+          className="h-8 w-8 md:h-8 md:w-8"
         />
         <div className="pl-4 cursor-pointer  h-full w-full flex justify-center  flex-col">
           <p className=" text-xs text-gray-300 font-semibold flex items-center gap-x-1">
