@@ -22,8 +22,7 @@ export const ChatWelcome = ({ type, name, imageUrl, username }: ChatWelcomeProps
           </div>
         )}
         <p className="text-xl md:text-3xl font-bold">
-        {type === "channel" && `Welcome to #${name}`}
-          {username}
+        {type === "channel" ? `Welcome to #${name}`: username}
         </p>
         <p>
           {type === "conversation"
