@@ -7,14 +7,10 @@ export const SocketIndicator = () => {
   const { isConnected } = useSocket();
   if (!isConnected) {
     return (
-      <div className="bg-yellow-600 text-white border-none w-2 h-2">
-        
-      </div>
+      <div className="bg-yellow-600 text-white border-none w-2 h-2 rounded-full" />
     );
   }
   return (
-    <div className="bg-emerald-600 text-white border-none w-2 h-2">
-      Live
-    </div>
+    <div className="bg-emerald-600 text-white border-none w-2 h-2 rounded-full" />
   );
 };
