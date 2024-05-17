@@ -79,11 +79,10 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
 
   return (
     <div
-      className={`flex flex-col h-full text-primary w-full  ${
-        profile.bgImage !== null
+      className={`flex flex-col h-full text-primary w-full  ${profile.bgImage !== null
           ? "dark:backdrop-brightness-90 dark:backdrop-blur"
           : "dark:bg-[#2B2D31] bg-[#F2F3F5] drop-shadow-xl shadow-[0_8px_30px_rgb(255,255,255,0.25)]"
-      }  border-r-[1px] border-[#363739]`}
+        }  border-r-[1px] border-[#363739]`}
     >
       <ServerHeader server={server} role={role} />
       <ScrollArea className=" flex-1 px-3">
@@ -96,6 +95,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: textChannels?.map((ch) => ({
                   id: ch.id,
                   name: ch.name,
+                  username: "",
                   icon: channelIconMap[ch.type]
                 }))
               },
@@ -105,6 +105,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: audioChannels?.map((ch) => ({
                   id: ch.id,
                   name: ch.name,
+                  username: "",
                   icon: channelIconMap[ch.type]
                 }))
               },
@@ -114,6 +115,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: videoChannels?.map((ch) => ({
                   id: ch.id,
                   name: ch.name,
+                  username: "",
                   icon: channelIconMap[ch.type]
                 }))
               },
@@ -123,6 +125,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 data: members?.map((member) => ({
                   id: member.id,
                   name: member.profile.name,
+                  username: member.profile.username,
                   icon: roleiconMap[member.role]
                 }))
               }

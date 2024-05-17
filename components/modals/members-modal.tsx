@@ -106,10 +106,10 @@ export const MembersModal = () => {
               <UserAvatar className="" src={member.profile.imageUrl} />
               <div className="flex flex-col gap-y-1">
                 <div className=" text-md font-semibold flex items-center gap-x-1">
-                  {member.profile.name}
+                  {member.profile.username}
                   {roleIconMap[member.role]}
                 </div>
-                <p className="text-md text-zinc-400">{member.profile.email}</p>
+                <p className="text-md text-zinc-400">{member.profile.name}</p>
               </div>
 
               {server.profileId !== member.profileId &&
