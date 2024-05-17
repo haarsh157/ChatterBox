@@ -38,7 +38,7 @@ export const ChatHeader = ({
           <UserAvatar src={imageUrl} className="h-8 w-8 md:h-8 md:w-8 mr-2" />
         )}
         <p className="font-semibold text-md text-black dark:text-white">
-          {username}
+          {type === "channel" ? name : username}
         </p>
         <div className="ml-auto flex items-center">
           {type === "conversation" && <ChatVideoButton />}
