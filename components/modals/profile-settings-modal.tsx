@@ -11,7 +11,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { ChangeBgImg } from "./profile-settings/change-bgImg";
+import { ChangeTheme } from "./profile-settings/change-theme";
 import { LogOut } from "./profile-settings/log-out";
 import { DeleteProfile } from "./profile-settings/delete-profile";
 import { ChangePfp } from "./profile-settings/change-pfp";
@@ -61,7 +61,7 @@ export const ProfileSettingsModal = () => {
                 Change The Theme
               </Button>
             </DialogTrigger>
-            <ChangeBgImg />
+            <ChangeTheme />
           </Dialog>
 
           {/* Change pfp */}

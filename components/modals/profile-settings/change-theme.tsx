@@ -2,6 +2,7 @@
 
 import { FileUpload } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DialogContent,
   DialogDescription,
@@ -24,24 +25,28 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const formSchema = z.object({
-  bgImage: z.string()
+  bgImage: z.string().optional(),
+  resetToDefault: z.boolean().optional()
 });
 
-export const ChangeBgImg = () => {
+export const ChangeTheme = () => {
   const { onClose } = useModal();
   const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bgImage: ""
+      bgImage: "",
+      resetToDefault: false
     }
   });
 
   const isLoading = form.formState.isSubmitting;
+  const bgImageValue = form.watch("bgImage");
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      console.log(values);
       await axios.patch(`/api/profile/`, values);
       form.reset();
       router.refresh();
@@ -95,6 +100,29 @@ export const ChangeBgImg = () => {
                 )}
               />
             </div>
+            <FormField
+              control={form.control}
+              name="resetToDefault"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="flex items-center space-x-2 justify-center">
+                      <Checkbox
+                        onChange={field.onChange}
+                        id="resetToDefault"
+                        disabled={!!bgImageValue}
+                      />
+                      <label
+                        htmlFor="resetToDefault"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Reset to Default
+                      </label>
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </div>
           <DialogFooter className="bg-[#1e1f22] px-6 py-4">
             {sendButton}
