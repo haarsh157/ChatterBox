@@ -23,8 +23,8 @@ export const LogOut = () => {
   const handleSignOut = async () => {
     setIsSigningOut(true);
     try {
-      await signOut();
       router.push("/");
+      await signOut();
       router.refresh();
       onClose();
     } catch (error) {
