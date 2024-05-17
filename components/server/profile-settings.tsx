@@ -20,7 +20,7 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
       >
         <UserAvatar
           src={profile.imageUrl}
-          className="h-8 w-8 md:h-8 md:w-8"
+          className="h-8 w-8 md:h-8 md:w-8 ml-4"
         />
         <div className="pl-4 cursor-pointer  h-full w-full flex justify-center  flex-col">
           <p className=" text-xs text-gray-300 font-semibold flex items-center gap-x-1">
