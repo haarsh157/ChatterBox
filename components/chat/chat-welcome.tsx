@@ -26,7 +26,7 @@ export const ChatWelcome = ({ type, name, imageUrl, username }: ChatWelcomeProps
         </p>
         <p>
           {type === "conversation"
-            ? `This is the start of your conversation with ${name}`
+            ? `This is the start of your conversation with ${username}`
             : `This is the start of the channel #${name}`}
         </p>
       </div>
