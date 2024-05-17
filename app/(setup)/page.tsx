@@ -3,10 +3,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const SetupPage = async () => {
-  const profile = await initialProfile();
-
-  if (profile) return redirect("/servers");
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-[100vw] max-w-5xl items-center justify-between font-mono text-sm lg:flex">
