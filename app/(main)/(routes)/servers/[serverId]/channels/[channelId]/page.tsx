@@ -48,6 +48,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         <ChatHeader
           serverId={channel.serverId}
           name={channel.name}
+          username={profile.username}
           type="channel"
           bgImage={profile.bgImage}
         />
@@ -56,6 +57,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
             <ChatMessages
               name={channel.name}
               member={member}
+              username={profile.username}
               chatId={channel.id}
               type="channel"
               apiUrl="/api/messages"
