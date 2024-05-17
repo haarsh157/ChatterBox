@@ -16,6 +16,7 @@ interface ChatMessagesProps {
   name: string;
   member: Member;
   chatId: string;
+  username:string;
   apiUrl: string;
   socketUrl: string;
   socketQuery: Record<string, string>;
@@ -41,7 +42,8 @@ export const ChatMessages = ({
   paramKey,
   paramValue,
   type,
-  imageUrl
+  imageUrl,
+  username
 }: ChatMessagesProps) => {
   const queryKey = [`chat:${chatId}`];
   const addKey = `chat:${chatId}:messages`;
@@ -91,7 +93,7 @@ export const ChatMessages = ({
   return (
     <div className="flex-1 flex flex-col py-4 overflow-y-auto" ref={chatRef}>
       <div className="flex-1" />
-      <ChatWelcome type={type} name={name} imageUrl={imageUrl} />
+      <ChatWelcome type={type} name={name} username={username} imageUrl={imageUrl} />
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
