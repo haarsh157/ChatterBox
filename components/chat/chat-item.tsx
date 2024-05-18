@@ -5,7 +5,7 @@ import axios from "axios";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Member, MemberRole, Profile } from "@prisma/client";
+import { Member, MemberRole, Profile, Server } from "@prisma/client";
 import { Edit, FileIcon, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -27,6 +27,9 @@ interface ChatItemProps {
   content: string;
   member: Member & {
     profile: Profile;
+  };
+  server: Server & {
+    members: (Member & { profile: Profile })[];
   };
   timestamp: string;
   fileUrl: string | null;
@@ -51,6 +54,7 @@ export const ChatItem = ({
   id,
   content,
   member,
+  server,
   timestamp,
   fileUrl,
   deleted,
@@ -123,6 +127,60 @@ export const ChatItem = ({
   const canEditMessage = !deleted && isOwner && !fileUrl;
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = !isPDF && fileUrl;
+
+  const extractMentions = (content: string) => {
+    const mentionRegex = /@(\w+)/g;
+    const mentions = [];
+    let match;
+    while ((match = mentionRegex.exec(content)) !== null) {
+      mentions.push({
+        mention: match[0],
+        index: match.index,
+        length: match[0].length
+      });
+    }
+    return mentions;
+  };
+  const mentions = extractMentions(content);
+
+  const renderContentWithMentions = (
+    content: string,
+    mentions: { mention: string; index: number; length: number }[]
+  ) => {
+    const parts = [];
+    let lastIndex = 0;
+
+    mentions.forEach(({ mention, index, length }) => {
+      if (lastIndex < index) {
+        parts.push(content.slice(lastIndex, index));
+      }
+
+      const username = mention.slice(1);
+      const member = server.members.find(
+        (m) => m.profile.username === username
+      );
+      const pro = member?.profile;
+
+      parts.push(
+        <Popover>
+          <PopoverTrigger
+            key={index}
+            className="bg-[#2189ea92] text-white font-bold p-1/5 rounded-md m-1 cursor-pointer"
+          >
+            {mention}
+          </PopoverTrigger>
+          <MemberProfile profile={pro} onMemberClick={onMemberClick} />
+        </Popover>
+      );
+      lastIndex = index + length;
+    });
+
+    if (lastIndex < content.length) {
+      parts.push(content.slice(lastIndex));
+    }
+
+    return parts;
+  };
 
   return (
     <ChatContextMenu
@@ -197,7 +255,9 @@ export const ChatItem = ({
                     "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
                 )}
               >
-                {content === fileUrl ? null : content}
+                {content === fileUrl
+                  ? null
+                  : renderContentWithMentions(content, mentions)}
                 {isUpdated && !deleted && (
                   <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
                     (edited)

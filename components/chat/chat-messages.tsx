@@ -15,8 +15,9 @@ const DATE_FORMAT = "d MMM yyyy, HH:mm";
 interface ChatMessagesProps {
   name: string;
   member: Member;
+  server: any;
   chatId: string;
-  username:string;
+  username: string;
   apiUrl: string;
   socketUrl: string;
   socketQuery: Record<string, string>;
@@ -35,6 +36,7 @@ type MessageWithMemberWithProfile = Message & {
 export const ChatMessages = ({
   name,
   member,
+  server,
   chatId,
   apiUrl,
   socketQuery,
@@ -93,7 +95,12 @@ export const ChatMessages = ({
   return (
     <div className="flex-1 flex flex-col py-4 overflow-y-auto" ref={chatRef}>
       <div className="flex-1" />
-      <ChatWelcome type={type} name={name} username={username} imageUrl={imageUrl} />
+      <ChatWelcome
+        type={type}
+        name={name}
+        username={username}
+        imageUrl={imageUrl}
+      />
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
@@ -103,6 +110,7 @@ export const ChatMessages = ({
                 id={message.id}
                 currentMember={member}
                 member={message.member}
+                server={server}
                 content={message.content}
                 fileUrl={message.fileUrl}
                 deleted={message.deleted}

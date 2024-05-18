@@ -19,6 +19,19 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
 
   if (!profile) return redirect("/");
 
+  const server = await db.server.findFirst({
+    where: {
+      id: params.serverId
+    },
+    include: {
+      members: {
+        include: {
+          profile: true
+        }
+      }
+    }
+  });
+
   const channel = await db.channel.findUnique({
     where: {
       id: params.channelId
@@ -57,6 +70,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
             <ChatMessages
               name={channel.name}
               member={member}
+              server={server}
               username={profile.username}
               chatId={channel.id}
               type="channel"
@@ -75,7 +89,6 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
               type="channel"
               apiUrl="/api/socket/messages"
               query={{ channelId: channel.id, serverId: channel.serverId }}
-              serverMembers={member}
             />
           </>
         )}
