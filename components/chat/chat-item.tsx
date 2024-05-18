@@ -217,7 +217,6 @@ export const ChatItem = ({
       mention.mention.slice(1) === currentMember.profile.username ||
       mention.mention === "@everyone"
   );
-  console.log(isCurrentUserMentioned);
 
   const isVideo =
     fileType === "mp4" || fileType === "webm" || fileType === "ogg";
