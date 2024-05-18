@@ -213,6 +213,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                     key={member.id}
                     member={member}
                     server={server}
+                    profile={profile}
                   />
                 ))}
               </div>

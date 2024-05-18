@@ -35,10 +35,7 @@ export const MemberProfile = ({
         <div className="h-[15%] w-full bg-purple-600 rounded-t-xl flex">
           <div className="w-full h-full flex items-center justify-center relative">
             <div className="h-full w-[70%] z-50 flex justify-end items-center m-2 p-2 absolute top-0 right-0">
-              <Button
-                onClick={() => onOpen("profileSettings", { profile })}
-                className="p-2 hover:bg-[#5f615f75] rounded-full outline-none"
-              >
+              <Button className="p-2 hover:bg-[#5f615f75] rounded-full outline-none">
                 <PencilIcon />
               </Button>
             </div>
@@ -46,7 +43,6 @@ export const MemberProfile = ({
         </div>
         <button
           className="h-[90px] w-[90px] bg-[#414142] rounded-full flex justify-center items-center absolute top-[15%] left-6 transform -translate-y-1/2 z-50"
-          onClick={() => onOpen("profileSettings", { profile })}
         >
           <UserAvatar
             src={profile.imageUrl}
