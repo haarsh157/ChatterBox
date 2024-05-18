@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { ChatContextMenu } from "./chat-context-menu";
+import { Popover, PopoverTrigger } from "../ui/popover";
+import { MemberProfile } from "../modals/member-profile";
 
 interface ChatItemProps {
   id: string;
@@ -66,8 +68,6 @@ export const ChatItem = ({
     if (member.id === currentMember.id) {
       return;
     }
-
-    // TODO profile modal
     router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
   };
 
@@ -135,9 +135,15 @@ export const ChatItem = ({
     >
       <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full">
         <div className="group flex gap-x-2 items-start w-full">
-          <div onClick={onMemberClick} className="cursor-pointer transition">
-            <UserAvatar src={member.profile.imageUrl} />
-          </div>
+          <Popover>
+            <PopoverTrigger className="cursor-pointer transition">
+              <UserAvatar src={member.profile.imageUrl} />
+            </PopoverTrigger>
+            <MemberProfile
+              profile={member.profile}
+              onMemberClick={onMemberClick}
+            />
+          </Popover>
           <div className="flex flex-col w-full">
             <div className="flex items-center gap-x-2">
               <div className="flex items-center">

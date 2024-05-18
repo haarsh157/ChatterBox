@@ -18,14 +18,15 @@ interface ChatInputProps {
   query: Record<string, any>;
   name: string;
   type: "conversation" | "channel";
+  serverMembers:any
 }
 
 const formSchema = z.object({
   content: z.string().min(1)
 });
 
-export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
-  const { onOpen } = useModal();
+export const ChatInput = ({ apiUrl, query, name, type, serverMembers }: ChatInputProps) => {
+  const { onOpen, data } = useModal();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
