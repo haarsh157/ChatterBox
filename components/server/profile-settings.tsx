@@ -5,10 +5,7 @@ import ActionTooltip from "../action-tooltip";
 import { PencilIcon, Settings } from "lucide-react";
 import { UserAvatar } from "@/components/user-avatar";
 import { format } from "date-fns";
-import {
-  Popover,
-  PopoverTrigger
-} from "@/components/ui/popover";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import {
   Card,
   CardContent,
@@ -37,9 +34,7 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
     <ActionTooltip label="Profile Settings" side="right">
       <DropdownMenu>
         <DropdownMenuTrigger asChild className=" outline-none">
-          <button
-            className=" h-[60px] flex items-center dark:hover:bg-[#454548] dark:hover:text-gray-200 z-50"
-          >
+          <button className=" h-[60px] flex items-center dark:hover:bg-[#454548] dark:hover:text-gray-200 z-50">
             <UserAvatar
               src={profile.imageUrl}
               className="h-8 w-8 md:h-8 md:w-8 ml-4"
@@ -106,19 +101,29 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
                       {/* <PopoverContent
                         className="border-none  bg-[#282828] rounded-xl p-2"
                         side="right"
-                      >
+                        >
                         <Button className="flex items-center justify-start hover:bg-[#414142] w-full p-1 rounded-xl">
-                          <div className="h-2 w-2 bg-emerald-500 rounded-full ml-4  "></div>
-                          <div className="px-4">Online</div>
+                        <div className="h-2 w-2 bg-emerald-500 rounded-full ml-4  "></div>
+                        <div className="px-4">Online</div>
                         </Button>
                         <div className=" flex justify-start items-center w-full">
-                          <Moon className="m-2 text-yellow-300 fill-yellow-300" />
-                          Idle
+                        <Moon className="m-2 text-yellow-300 fill-yellow-300" />
+                        Idle
                         </div>
                         <Separator className=" bg-zinc-200 dark:bg-zinc-600 w-[95%] ml-2" />
                       </PopoverContent> */}
                     </Button>
                   </Popover>
+                </CardContent>
+                <Separator className=" bg-zinc-200 dark:bg-zinc-600 w-[95%] ml-2" />
+                <CardContent className="p-2">
+                  <Button
+                    onClick={() => onOpen("profileSettings", { profile })}
+                    className="w-full justify-between hover:bg-[#414142] text-md"
+                  >
+                    Profile Settings
+                    <Settings className="" />
+                  </Button>
                 </CardContent>
               </Card>
             </div>

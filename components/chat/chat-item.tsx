@@ -171,7 +171,14 @@ export const ChatItem = ({
           >
             {mention}
           </PopoverTrigger>
-          <MemberProfile profile={pro} onMemberClick={onMemberClick} />
+          <MemberProfile
+            profile={pro}
+            onMemberClick={() => {
+              router.push(
+                `/servers/${params?.serverId}/conversations/${member?.id}`
+              );
+            }}
+          />
         </Popover>
       );
       lastIndex = index + length;
@@ -201,7 +208,9 @@ export const ChatItem = ({
       <div
         className={cn(
           "relative group flex items-center p-4 transition w-full",
-          isCurrentUserMentioned ? "bg-[#473b607d]" : "hover:bg-[#2b2d316f]"
+          isCurrentUserMentioned
+            ? "bg-[#473b607d] border-l-2 border-[#6829eff0]"
+            : "hover:bg-[#2b2d316f]"
         )}
       >
         <div className="group flex gap-x-2 items-start w-full">
@@ -217,10 +226,7 @@ export const ChatItem = ({
           <div className="flex flex-col w-full">
             <div className="flex items-center gap-x-2">
               <div className="flex items-center">
-                <p
-                  onClick={onMemberClick}
-                  className="font-semibold text-sm hover:underline cursor-pointer"
-                >
+                <p className="font-semibold text-sm hover:underline cursor-pointer">
                   {member.profile.username}
                 </p>
                 <ActionTooltip label={member.role}>
