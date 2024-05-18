@@ -37,8 +37,8 @@ export const DeleteProfile = () => {
   const handleDelete = async () => {
     try {
       router.push("/");
-      await handleSignOut();
       await axios.delete(`/api/profile`);
+      await handleSignOut();
       onClose();
       router.refresh();
     } catch (error) {

@@ -52,6 +52,74 @@ const formSchema = z.object({
   content: z.string().min(1)
 });
 
+const renderContentWithMentions = (
+  content: string,
+  mentions: { mention: string; index: number; length: number }[],
+  server: ChatItemProps["server"],
+  router: ReturnType<typeof useRouter>,
+  params: ReturnType<typeof useParams>
+) => {
+  const parts = [];
+  let lastIndex = 0;
+
+  mentions.forEach(({ mention, index, length }) => {
+    if (lastIndex < index) {
+      parts.push(content.slice(lastIndex, index));
+    }
+
+    if (mention === "@everyone") {
+      parts.push(
+        <span
+          key={index}
+          className="bg-[#2189ea92] text-white font-bold p-1/5 rounded-md m-1"
+        >
+          {mention}
+        </span>
+      );
+    } else {
+      const username = mention.slice(1);
+      const member = server.members.find(
+        (m) => m.profile.username === username
+      );
+      const profile = member?.profile;
+
+      if (profile) {
+        parts.push(
+          <Popover key={index}>
+            <PopoverTrigger className="bg-[#2189ea92] text-white font-bold p-1/5 rounded-md m-1 cursor-pointer">
+              {mention}
+            </PopoverTrigger>
+            <MemberProfile
+              profile={profile}
+              onMemberClick={() => {
+                router.push(
+                  `/servers/${params?.serverId}/conversations/${member?.id}`
+                );
+              }}
+            />
+          </Popover>
+        );
+      } else {
+        parts.push(
+          <span
+            key={index}
+            className="text-sm text-zinc-600 dark:text-zinc-300"
+          >
+            {mention}
+          </span>
+        );
+      }
+    }
+    lastIndex = index + length;
+  });
+
+  if (lastIndex < content.length) {
+    parts.push(content.slice(lastIndex));
+  }
+
+  return parts;
+};
+
 export const ChatItem = ({
   id,
   content,
@@ -128,7 +196,6 @@ export const ChatItem = ({
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
   const canEditMessage = !deleted && isOwner && !fileUrl;
   const isPDF = fileType === "pdf" && fileUrl;
-  const isImage = !isPDF && fileUrl;
 
   const extractMentions = (content: string) => {
     const mentionRegex = /@(\w+)/g;
@@ -145,56 +212,22 @@ export const ChatItem = ({
   };
   const mentions = extractMentions(content);
 
-  const renderContentWithMentions = (
-    content: string,
-    mentions: { mention: string; index: number; length: number }[]
-  ) => {
-    const parts = [];
-    let lastIndex = 0;
-
-    mentions.forEach(({ mention, index, length }) => {
-      if (lastIndex < index) {
-        parts.push(content.slice(lastIndex, index));
-      }
-
-      const username = mention.slice(1);
-      const member = server.members.find(
-        (m) => m.profile.username === username
-      );
-      const pro = member?.profile;
-
-      parts.push(
-        <Popover>
-          <PopoverTrigger
-            key={index}
-            className="bg-[#2189ea92] text-white font-bold p-1/5 rounded-md m-1 cursor-pointer"
-          >
-            {mention}
-          </PopoverTrigger>
-          <MemberProfile
-            profile={pro}
-            onMemberClick={() => {
-              router.push(
-                `/servers/${params?.serverId}/conversations/${member?.id}`
-              );
-            }}
-          />
-        </Popover>
-      );
-      lastIndex = index + length;
-    });
-
-    if (lastIndex < content.length) {
-      parts.push(content.slice(lastIndex));
-    }
-
-    return parts;
-  };
-
   const isCurrentUserMentioned = mentions.some(
-    (mention) => mention.mention.slice(1) === currentMember.profile.username
+    (mention) =>
+      mention.mention.slice(1) === currentMember.profile.username ||
+      mention.mention === "@everyone"
   );
   console.log(isCurrentUserMentioned);
+
+  const isVideo =
+    fileType === "mp4" || fileType === "webm" || fileType === "ogg";
+  const isImage =
+    !isVideo &&
+    fileUrl &&
+    (fileType === "jpg" ||
+      fileType === "jpeg" ||
+      fileType === "png" ||
+      fileType === "gif");
 
   return (
     <ChatContextMenu
@@ -245,12 +278,20 @@ export const ChatItem = ({
                 className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48 border-none"
               >
                 <Image
-                  src={fileUrl}
+                  src={fileUrl || ""}
                   alt={content}
                   fill
                   className="object-cover"
                 />
               </a>
+            )}
+            {isVideo && (
+              <video
+                src={fileUrl || ""}
+                controls
+                autoPlay
+                className="rounded-md mt-2 h-48 w-48"
+              />
             )}
             {isPDF && (
               <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
@@ -275,7 +316,13 @@ export const ChatItem = ({
               >
                 {content === fileUrl
                   ? null
-                  : renderContentWithMentions(content, mentions)}
+                  : renderContentWithMentions(
+                      content,
+                      mentions,
+                      server,
+                      router,
+                      params
+                    )}
                 {isUpdated && !deleted && (
                   <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
                     (edited)
