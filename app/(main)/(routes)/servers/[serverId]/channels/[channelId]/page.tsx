@@ -42,6 +42,9 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     where: {
       serverId: params.serverId,
       profileId: profile.id
+    },
+    include: {
+      profile: true
     }
   });
 
