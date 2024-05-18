@@ -2,12 +2,11 @@
 
 import { useModal } from "@/hooks/use-modal-store";
 import ActionTooltip from "../action-tooltip";
-import { ChevronRight, Moon, PencilIcon, Settings } from "lucide-react";
-import { UserAvatar } from "../user-avatar";
+import { PencilIcon, Settings } from "lucide-react";
+import { UserAvatar } from "@/components/user-avatar";
 import { format } from "date-fns";
 import {
   Popover,
-  PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover";
 import {
@@ -16,18 +15,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle
-} from "../ui/card";
+} from "@/components/ui/card";
 import { Separator } from "../ui/separator";
-import { ContextMenuSubTrigger } from "../ui/context-menu";
-import { Sub } from "@radix-ui/react-dropdown-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 interface ProfileSettingsProps {
   profile: any;
@@ -43,7 +38,6 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild className=" outline-none">
           <button
-            // onClick={() => onOpen("profileSettings", { profile })}
             className=" h-[60px] flex items-center dark:hover:bg-[#454548] dark:hover:text-gray-200 z-50"
           >
             <UserAvatar
