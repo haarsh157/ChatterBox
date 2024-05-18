@@ -1,6 +1,4 @@
-import { initialProfile } from "@/lib/initial-profile";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 const SetupPage = async () => {
   return (
