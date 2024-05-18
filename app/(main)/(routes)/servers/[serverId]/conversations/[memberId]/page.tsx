@@ -21,6 +21,12 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
   const profile = await currentProfile();
   if (!profile) return redirect("/");
 
+  const server = await db.server.findFirst({
+    where: {
+      id: params.serverId
+    }
+  });
+
   const currentMember = await db.member.findFirst({
     where: {
       serverId: params.serverId,
@@ -75,6 +81,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
                 name={otherMember.profile.name}
                 username={otherMember.profile.username}
                 chatId={conversation.id}
+                server={server}
                 type="conversation"
                 apiUrl="/api/direct-messages"
                 paramKey="conversationId"

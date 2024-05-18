@@ -18,14 +18,18 @@ interface ChatInputProps {
   query: Record<string, any>;
   name: string;
   type: "conversation" | "channel";
-  serverMembers:any
 }
 
 const formSchema = z.object({
   content: z.string().min(1)
 });
 
-export const ChatInput = ({ apiUrl, query, name, type, serverMembers }: ChatInputProps) => {
+export const ChatInput = ({
+  apiUrl,
+  query,
+  name,
+  type,
+}: ChatInputProps) => {
   const { onOpen, data } = useModal();
   const router = useRouter();
 
@@ -63,9 +67,7 @@ export const ChatInput = ({ apiUrl, query, name, type, serverMembers }: ChatInpu
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div
-                  className="md:relative p-4 pb-6 bottom-0 sticky"
-                  >
+                <div className="md:relative p-4 pb-6 bottom-0 sticky">
                   <button
                     type="button"
                     onClick={() => onOpen("messageFile", { apiUrl, query })}
