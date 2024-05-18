@@ -24,12 +24,7 @@ const formSchema = z.object({
   content: z.string().min(1)
 });
 
-export const ChatInput = ({
-  apiUrl,
-  query,
-  name,
-  type,
-}: ChatInputProps) => {
+export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   const { onOpen, data } = useModal();
   const router = useRouter();
 
@@ -48,7 +43,7 @@ export const ChatInput = ({
         url: apiUrl,
         query
       });
-
+      console.log(url);
       await axios.post(url, values);
 
       form.reset();
