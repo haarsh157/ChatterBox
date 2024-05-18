@@ -34,7 +34,9 @@ interface ChatItemProps {
   timestamp: string;
   fileUrl: string | null;
   deleted: boolean;
-  currentMember: Member;
+  currentMember: Member & {
+    profile: Profile;
+  };
   isUpdated: boolean;
   socketUrl: string;
   socketQuery: Record<string, string>;
@@ -182,6 +184,11 @@ export const ChatItem = ({
     return parts;
   };
 
+  const isCurrentUserMentioned = mentions.some(
+    (mention) => mention.mention.slice(1) === currentMember.profile.username
+  );
+  console.log(isCurrentUserMentioned);
+
   return (
     <ChatContextMenu
       canDeleteMessage={canDeleteMessage}
@@ -191,7 +198,12 @@ export const ChatItem = ({
       id={id}
       socketQuery={socketQuery}
     >
-      <div className="relative group flex items-center hover:bg-[#2b2d316f] p-4 transition w-full">
+      <div
+        className={cn(
+          "relative group flex items-center p-4 transition w-full",
+          isCurrentUserMentioned ? "bg-[#473b607d]" : "hover:bg-[#2b2d316f]"
+        )}
+      >
         <div className="group flex gap-x-2 items-start w-full">
           <Popover>
             <PopoverTrigger className="cursor-pointer transition">

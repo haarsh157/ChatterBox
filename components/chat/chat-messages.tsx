@@ -14,7 +14,7 @@ const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
 interface ChatMessagesProps {
   name: string;
-  member: Member;
+  member: any;
   server: any;
   chatId: string;
   username: string;
