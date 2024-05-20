@@ -7,8 +7,7 @@ import {
   ContextMenuTrigger
 } from "@/components/ui/context-menu";
 import { useModal } from "@/hooks/use-modal-store";
-import { Edit, Trash } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Edit, Reply, Trash } from "lucide-react";
 
 interface ChatContextMenuProps {
   children: React.ReactNode;
@@ -18,6 +17,7 @@ interface ChatContextMenuProps {
   socketUrl: string;
   id: string;
   socketQuery: Record<string, string>;
+  handleReplyClick: any;
 }
 
 export const ChatContextMenu = ({
@@ -27,7 +27,8 @@ export const ChatContextMenu = ({
   setIsEditing,
   socketUrl,
   id,
-  socketQuery
+  socketQuery,
+  handleReplyClick
 }: ChatContextMenuProps) => {
   const { onOpen } = useModal();
 
@@ -35,6 +36,10 @@ export const ChatContextMenu = ({
     <ContextMenu>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
       <ContextMenuContent className="w-64 border-none bg-black">
+        <ContextMenuItem inset onClick={handleReplyClick}>
+          Reply
+          <Reply className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+        </ContextMenuItem>
         {canEditMessage && (
           <ContextMenuItem inset onClick={() => setIsEditing(true)}>
             <p>Edit Message</p>

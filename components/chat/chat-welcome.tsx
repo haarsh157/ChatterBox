@@ -5,10 +5,15 @@ interface ChatWelcomeProps {
   name: string;
   type: "channel" | "conversation";
   imageUrl: string;
-  username:string
+  username: string;
 }
 
-export const ChatWelcome = ({ type, name, imageUrl, username }: ChatWelcomeProps) => {
+export const ChatWelcome = ({
+  type,
+  name,
+  imageUrl,
+  username
+}: ChatWelcomeProps) => {
   return (
     <>
       <div className="space-y-2 px-4 mb-4">
@@ -22,7 +27,7 @@ export const ChatWelcome = ({ type, name, imageUrl, username }: ChatWelcomeProps
           </div>
         )}
         <p className="text-xl md:text-3xl font-bold">
-        {type === "channel" ? `Welcome to #${name}`: username}
+          {type === "channel" ? `Welcome to #${name}` : username}
         </p>
         <p>
           {type === "conversation"

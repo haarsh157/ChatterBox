@@ -15,7 +15,7 @@ export default async function handler(
 
   try {
     const profile = await currentProfilePages(req);
-    const { content, fileUrl } = req.body;
+    const { content, fileUrl, replyTo, replyContent } = req.body;
     const { serverId, channelId } = req.query;
 
     if (!profile) {
@@ -73,6 +73,8 @@ export default async function handler(
       data: {
         content,
         fileUrl,
+        replyTo,
+        replyContent,
         channelId: channelId as string,
         memberId: member.id
       },

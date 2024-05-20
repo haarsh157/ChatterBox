@@ -6,7 +6,7 @@ import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile, Server } from "@prisma/client";
-import { Edit, FileIcon, ShieldCheck, Trash } from "lucide-react";
+import { Edit, FileIcon, Reply, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
@@ -21,6 +21,7 @@ import { useModal } from "@/hooks/use-modal-store";
 import { ChatContextMenu } from "./chat-context-menu";
 import { Popover, PopoverTrigger } from "../ui/popover";
 import { MemberProfile } from "../modals/member-profile";
+import { useMessageId } from "../provider/context-provider";
 
 interface ChatItemProps {
   id: string;
@@ -40,6 +41,9 @@ interface ChatItemProps {
   isUpdated: boolean;
   socketUrl: string;
   socketQuery: Record<string, string>;
+  repliedTo: string | null;
+  replyTo: any;
+  replyContent: string | null;
 }
 
 const roleIconMap: Record<MemberRole, JSX.Element | null> = {
@@ -131,12 +135,16 @@ export const ChatItem = ({
   currentMember,
   isUpdated,
   socketUrl,
-  socketQuery
+  socketQuery,
+  repliedTo,
+  replyTo,
+  replyContent
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const { onOpen } = useModal();
   const params = useParams();
   const router = useRouter();
+  const { setMessageId } = useMessageId();
 
   const onMemberClick = () => {
     if (member.id === currentMember.id) {
@@ -228,6 +236,10 @@ export const ChatItem = ({
       fileType === "png" ||
       fileType === "gif");
 
+  const handleReplyClick = () => {
+    setMessageId(id);
+  };
+
   return (
     <ChatContextMenu
       canDeleteMessage={canDeleteMessage}
@@ -236,15 +248,27 @@ export const ChatItem = ({
       socketUrl={socketUrl}
       id={id}
       socketQuery={socketQuery}
+      handleReplyClick={handleReplyClick}
     >
       <div
         className={cn(
-          "relative group flex items-center p-4 transition w-full",
-          isCurrentUserMentioned
+          "relative group flex flex-col p-4 transition w-full",
+          isCurrentUserMentioned || repliedTo === currentMember.profile.id
             ? "bg-[#473b607d] border-l-2 border-[#6829eff0]"
             : "hover:bg-[#2b2d316f]"
         )}
       >
+        {repliedTo && (
+          <div className="text-xs h-6 px-4 flex items-end">
+            <div className="h-[70%] w-8 border-l-2 border-t-2 border-[#616260] rounded-tl-xl"></div>
+            <span className="h-full text-xs font-bold text-[#bebfc2] overflow-hidden whitespace-nowrap">
+              @{currentMember.profile.username} :{" "}
+              <span className=" font-medium overflow-hidden whitespace-nowrap">
+                {replyContent}
+              </span>
+            </span>
+          </div>
+        )}
         <div className="group flex gap-x-2 items-start w-full">
           <Popover>
             <PopoverTrigger className="cursor-pointer transition">
@@ -364,29 +388,37 @@ export const ChatItem = ({
             )}
           </div>
         </div>
-        {canDeleteMessage && (
-          <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
-            {canEditMessage && (
-              <ActionTooltip label="Edit">
-                <Edit
-                  onClick={() => setIsEditing(true)}
+        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border-none rounded-sm">
+          <ActionTooltip label="Reply">
+            <Reply
+              onClick={handleReplyClick}
+              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+            />
+          </ActionTooltip>
+          {canDeleteMessage && (
+            <>
+              {canEditMessage && (
+                <ActionTooltip label="Edit">
+                  <Edit
+                    onClick={() => setIsEditing(true)}
+                    className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                  />
+                </ActionTooltip>
+              )}
+              <ActionTooltip label="Delete">
+                <Trash
+                  onClick={() =>
+                    onOpen("deleteMessage", {
+                      apiUrl: `${socketUrl}/${id}`,
+                      query: socketQuery
+                    })
+                  }
                   className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                 />
               </ActionTooltip>
-            )}
-            <ActionTooltip label="Delete">
-              <Trash
-                onClick={() =>
-                  onOpen("deleteMessage", {
-                    apiUrl: `${socketUrl}/${id}`,
-                    query: socketQuery
-                  })
-                }
-                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-              />
-            </ActionTooltip>
-          </div>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </ChatContextMenu>
   );
