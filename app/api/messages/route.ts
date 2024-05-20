@@ -4,7 +4,7 @@ import { Message } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 const MESSAGE_BATCH = 20;
-export const dynamic = "force-dynamic"; 
+export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
@@ -29,38 +29,38 @@ export async function GET(req: Request) {
         take: MESSAGE_BATCH,
         skip: 1,
         cursor: {
-          id: cursor,
+          id: cursor
         },
         where: {
-          channelId,
+          channelId
         },
         include: {
           member: {
             include: {
-              profile: true,
-            },
-          },
+              profile: true
+            }
+          }
         },
         orderBy: {
-          createdAt: "desc",
-        },
+          createdAt: "desc"
+        }
       });
     } else {
       messages = await db.message.findMany({
         take: MESSAGE_BATCH,
         where: {
-          channelId,
+          channelId
         },
         include: {
           member: {
             include: {
-              profile: true,
-            },
-          },
+              profile: true
+            }
+          }
         },
         orderBy: {
-          createdAt: "desc",
-        },
+          createdAt: "desc"
+        }
       });
     }
 
@@ -71,7 +71,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json({
       items: messages,
-      nextCursor,
+      nextCursor
     });
   } catch (error) {
     console.log("Messageerror", error);

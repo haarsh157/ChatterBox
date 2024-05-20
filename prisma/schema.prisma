@@ -121,6 +121,8 @@ model Message {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  replyTo String?
+  replyContent String?
 
   @@index([channelId])
   @@index([memberId])

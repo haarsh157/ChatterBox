@@ -8,6 +8,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ModalProvider } from "@/components/provider/modal-provider";
 import { SocketProvider } from "@/components/provider/socket-provider";
 import { QueryProvider } from "@/components/provider/query-provider";
+import { MessageIdProvider } from "@/components/provider/context-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -41,7 +42,9 @@ export default function RootLayout({
           >
             <SocketProvider>
               <ModalProvider />
-              <QueryProvider>{children}</QueryProvider>
+              <QueryProvider>
+                <MessageIdProvider>{children}</MessageIdProvider>
+              </QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>

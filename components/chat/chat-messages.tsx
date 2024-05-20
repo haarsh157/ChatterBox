@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, Fragment, ElementRef } from "react";
+import { useRef, Fragment, ElementRef, useState } from "react";
 import { format } from "date-fns";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { useChatSocket } from "@/hooks/use-chat-socket";
@@ -61,7 +61,9 @@ export const ChatMessages = ({
       paramKey,
       paramValue
     });
+
   useChatSocket({ queryKey, addKey, updateKey });
+
   useChatScroll({
     chatRef,
     bottomRef,
@@ -69,6 +71,12 @@ export const ChatMessages = ({
     shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
     count: data?.pages?.[0]?.items?.length ?? 0
   });
+
+  const [replyTo, setReplyTo] = useState("");
+
+  const handleReply = (id: string) => {
+    setReplyTo(id);
+  };
 
   if (status === "pending") {
     return (
@@ -112,12 +120,15 @@ export const ChatMessages = ({
                 member={message.member}
                 server={server}
                 content={message.content}
+                repliedTo={message.replyTo}
                 fileUrl={message.fileUrl}
                 deleted={message.deleted}
                 timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
                 isUpdated={message.updatedAt !== message.createdAt}
                 socketUrl={socketUrl}
                 socketQuery={socketQuery}
+                replyTo={handleReply}
+                replyContent={message.replyContent}
               />
             ))}
           </Fragment>
