@@ -11,7 +11,6 @@ import { format } from "date-fns";
 import { Button } from "../ui/button";
 import { Mail, PencilIcon } from "lucide-react";
 import { UserAvatar } from "../user-avatar";
-import { useModal } from "@/hooks/use-modal-store";
 
 const DATE_FORMAT = "d MMM yyyy";
 
@@ -24,12 +23,10 @@ export const MemberProfile = ({
   profile,
   onMemberClick
 }: MemberProfileProps) => {
-  const { onOpen } = useModal();
-
   return (
     <PopoverContent
       className=" h-[500px] w-96 bg-[#282828] border-none rounded-xl"
-      side="right"
+      side="top"
     >
       <div className="flex items-center justify-between h-full flex-col bg-[#454548] rounded-xl relative">
         <div className="h-[15%] w-full bg-purple-600 rounded-t-xl flex">

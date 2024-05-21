@@ -16,6 +16,7 @@ interface MediaRoomProps {
 export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
   const { user } = useUser();
   const [token, setToken] = useState("");
+  const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
     if (!user?.username) return;
@@ -29,6 +30,7 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
         );
         const data = await resp.json();
         setToken(data.token);
+        setParticipants(data.participants);
       } catch (e) {
         console.log(e);
       }
