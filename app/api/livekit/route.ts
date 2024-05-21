@@ -1,4 +1,4 @@
-import { AccessToken } from "livekit-server-sdk";
+import { AccessToken, RoomServiceClient } from "livekit-server-sdk";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -31,5 +31,8 @@ export async function GET(req: NextRequest) {
 
   at.addGrant({ room, roomJoin: true, canPublish: true, canSubscribe: true });
 
-  return NextResponse.json({ token: at.toJwt() });
+  const client = new RoomServiceClient(wsUrl, apiKey, apiSecret);
+  const participants = await client.listParticipants(room);
+
+  return NextResponse.json({ token: at.toJwt(), participants });
 }

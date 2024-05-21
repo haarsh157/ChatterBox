@@ -198,28 +198,6 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             </div>
           </>
         )}
-        {!!members?.length && (
-          <>
-            <div className="mb-2">
-              <ServerSection
-                sectionType="members"
-                role={role}
-                label="Members"
-                server={server}
-              />
-              <div className="space-y-[2px]">
-                {members.map((member) => (
-                  <ServerMember
-                    key={member.id}
-                    member={member}
-                    server={server}
-                    profile={profile}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
       </ScrollArea>
       <Separator className=" bg-zinc-200 dark:bg-zinc-600" />{" "}
       <ProfileSettings profile={profile} />

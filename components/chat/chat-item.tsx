@@ -240,6 +240,8 @@ export const ChatItem = ({
     setMessageId(id);
   };
 
+  const replyToProfile = server.members.find((m) => m.profile.id === repliedTo);
+
   return (
     <ChatContextMenu
       canDeleteMessage={canDeleteMessage}
@@ -262,7 +264,7 @@ export const ChatItem = ({
           <div className="text-xs h-6 px-4 flex items-end">
             <div className="h-[70%] w-8 border-l-2 border-t-2 border-[#616260] rounded-tl-xl"></div>
             <span className="h-full text-xs font-bold text-[#bebfc2] overflow-hidden whitespace-nowrap">
-              @{currentMember.profile.username} :{" "}
+              @{replyToProfile?.profile.username} :{" "}
               <span className=" font-medium overflow-hidden whitespace-nowrap">
                 {replyContent}
               </span>
