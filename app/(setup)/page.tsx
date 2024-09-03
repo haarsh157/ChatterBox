@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 const SetupPage = () => {
-  const [cookies, setCookies] = useState("");
+  // const [cookies, setCookies] = useState("");
 
-  useEffect(() => {
-    const cookies = document.cookie;
-    console.log(cookies);
-    setCookies(cookies);
+  // useEffect(() => {
+  //   const cookies = document.cookie;
+  //   console.log(cookies);
+  //   setCookies(cookies);
 
-    if (cookies) return redirect("/servers");
-  }, []);
+  //   if (cookies) return redirect("/servers");
+  // }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
