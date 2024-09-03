@@ -11,8 +11,8 @@ export const initialProfile = async () => {
 
   const profile = await db.profile.findUnique({
     where: {
-      userId: user.id
-    }
+      userId: user.id,
+    },
   });
 
   if (profile) {
@@ -25,8 +25,10 @@ export const initialProfile = async () => {
       username: "",
       name: `${user.firstName} ${user.lastName}`,
       imageUrl: user.imageUrl,
-      email: user.emailAddresses[0].emailAddress
-    }
+      email: user.emailAddresses[0].emailAddress,
+      bgImage:
+        "https://utfs.io/f/2a44e2d0-faea-4280-8be7-485e3c62677b-rtyzmq.jpg",
+    },
   });
 
   return newProfile;
