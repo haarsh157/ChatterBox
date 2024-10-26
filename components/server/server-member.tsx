@@ -64,7 +64,7 @@ export const ServerMember = ({ member, profile }: ServerMemberProps) => {
             </button>
           </PopoverTrigger>
           <MemberProfile
-            profile={member.profile}
+            profile={member}
             onMemberClick={() => {
               router.push(
                 `/servers/${params?.serverId}/conversations/${member?.id}`
