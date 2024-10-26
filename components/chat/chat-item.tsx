@@ -85,7 +85,7 @@ const renderContentWithMentions = (
       const member = server.members.find(
         (m) => m.profile.username === username
       );
-      const profile = member?.profile;
+      const profile = member;
 
       if (profile) {
         parts.push(
@@ -277,7 +277,7 @@ export const ChatItem = ({
               <UserAvatar src={member.profile.imageUrl} />
             </PopoverTrigger>
             <MemberProfile
-              profile={member.profile}
+              profile={member}
               onMemberClick={onMemberClick}
             />
           </Popover>
