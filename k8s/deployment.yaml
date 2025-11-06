@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatterbox-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatterbox
+  template:
+    metadata:
+      labels:
+        app: chatterbox
+    spec:
+      containers:
+        - name: chatterbox
+          image: harshrange/chatterbox:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: chatterbox-secret

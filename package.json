@@ -6,7 +6,9 @@
     "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start:worker": "ts-node workers/messageWorker.ts"
+}
   },
   "dependencies": {
     "@clerk/nextjs": "^5.0.8",
@@ -32,10 +34,12 @@
     "@types/uuid": "^9.0.8",
     "@uploadthing/react": "^6.5.3",
     "axios": "^1.6.8",
+    "bull": "^4.16.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "ioredis": "^5.8.2",
     "livekit-client": "^1.14.1",
     "livekit-server-sdk": "^1.2.7",
     "lucide-react": "^0.378.0",
