@@ -1,40 +1,80 @@
-// /pages/api/messages/[serverId]/[channelId].ts
-import { currentProfilePages } from "@/lib/current-profile-pages";
-import { NextApiResponseServerIO } from "@/types";
-import { NextApiRequest } from "next";
-import { messageQueue } from "@/lib/messageQueue";
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
+import { Message } from "@prisma/client";
+import { NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponseServerIO
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+const MESSAGE_BATCH = 20;
+export const dynamic = "force-dynamic";
 
+export async function GET(req: Request) {
   try {
-    const profile = await currentProfilePages(req);
-    const { content, fileUrl, replyTo, replyContent } = req.body;
-    const { serverId, channelId } = req.query;
+    const profile = await currentProfile();
+    const { searchParams } = new URL(req.url);
 
-    if (!profile) return res.status(401).json({ error: "Unauthorised" });
-    if (!serverId) return res.status(400).json({ error: "ServerId missing" });
-    if (!channelId) return res.status(400).json({ error: "ChannelId missing" });
-    if (!content) return res.status(400).json({ error: "Content missing" });
+    const cursor = searchParams.get("cursor");
+    const channelId = searchParams.get("channelId");
 
-    await messageQueue.add({
-      profileId: profile.id,
-      serverId,
-      channelId,
-      content,
-      fileUrl,
-      replyTo,
-      replyContent,
+    if (!profile) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    if (!channelId) {
+      return new NextResponse("Channel ID missing", { status: 400 });
+    }
+
+    let messages: Message[] = [];
+
+    if (cursor) {
+      messages = await db.message.findMany({
+        take: MESSAGE_BATCH,
+        skip: 1,
+        cursor: {
+          id: cursor
+        },
+        where: {
+          channelId
+        },
+        include: {
+          member: {
+            include: {
+              profile: true
+            }
+          }
+        },
+        orderBy: {
+          createdAt: "desc"
+        }
+      });
+    } else {
+      messages = await db.message.findMany({
+        take: MESSAGE_BATCH,
+        where: {
+          channelId
+        },
+        include: {
+          member: {
+            include: {
+              profile: true
+            }
+          }
+        },
+        orderBy: {
+          createdAt: "desc"
+        }
+      });
+    }
+
+    let nextCursor = null;
+    if (messages.length === MESSAGE_BATCH) {
+      nextCursor = messages[MESSAGE_BATCH - 1].id;
+    }
+
+    return NextResponse.json({
+      items: messages,
+      nextCursor
     });
-
-    return res.status(200).json({ status: "queued" });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "internal error" });
+    console.log("Messageerror", error);
+    return new NextResponse("Internal error", { status: 500 });
   }
 }
